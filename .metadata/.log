@@ -1,0 +1,64 @@
+
+!ENTRY org.eclipse.ui.ide 4 4 2014-01-06 23:50:14.281
+!MESSAGE Problems saving workspace
+
+!ENTRY org.eclipse.ui.ide 4 1 2014-01-06 23:50:14.281
+!MESSAGE Problems occurred while trying to save the state of the workbench.
+!SUBENTRY 1 org.eclipse.core.resources 4 568 2014-01-06 23:50:14.281
+!MESSAGE Could not write workspace metadata '/Users/jbentleymusic/Desktop/java2_Bentley2/.metadata/.plugins/org.eclipse.core.resources/.root/2.tree'.
+!STACK 0
+java.io.FileNotFoundException: /Users/jbentleymusic/Desktop/java2_Bentley2/.metadata/.plugins/org.eclipse.core.resources/.root/2.tree (No such file or directory)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:194)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:145)
+	at org.eclipse.core.internal.localstore.SafeFileOutputStream.<init>(SafeFileOutputStream.java:51)
+	at org.eclipse.core.internal.resources.SaveManager.saveTree(SaveManager.java:1350)
+	at org.eclipse.core.internal.resources.SaveManager.save(SaveManager.java:1134)
+	at org.eclipse.core.internal.resources.Workspace.save(Workspace.java:2375)
+	at org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor$5.run(IDEWorkbenchAdvisor.java:508)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+!SESSION 2014-01-06 23:50:22.240 -----------------------------------------------
+eclipse.buildId=v22.2.1-833290
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -keyring /Users/jbentleymusic/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -keyring /Users/jbentleymusic/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-01-06 23:50:25.875
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-01-06 23:50:47.324 -----------------------------------------------
+eclipse.buildId=v22.2.1-833290
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -keyring /Users/jbentleymusic/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -data /Users/jbentleymusic/Desktop/java2_Bentley2 -product com.android.ide.eclipse.adt.package.product -keyring /Users/jbentleymusic/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-01-06 23:50:50.843
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-01-06 23:51:21.859
+!MESSAGE Failed to load properties file for project 'sportsHeadlines'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-01-06 23:51:30.568
+!MESSAGE Collect preferences failed, class java/lang/AutoCloseable not found in /Applications/adt-bundle-mac-x86_64-20130917/sdk/platforms/android-19/android.jar
+!STACK 0
+java.lang.NoClassDefFoundError: java/lang/AutoCloseable
+	at java.lang.ClassLoader.defineClass1(Native Method)
+	at java.lang.ClassLoader.defineClassCond(ClassLoader.java:637)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:621)
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:471)
+	at com.android.ide.eclipse.adt.internal.sdk.AndroidJarLoader.defineAndCacheClass(AndroidJarLoader.java:327)
+	at com.android.ide.eclipse.adt.internal.sdk.AndroidJarLoader.findClassesDerivingFrom(AndroidJarLoader.java:254)
+	at com.android.ide.eclipse.adt.internal.sdk.LayoutParamsParser.parseClasses(LayoutParamsParser.java:160)
+	at com.android.ide.eclipse.adt.internal.sdk.LayoutParamsParser.parsePreferencesClasses(LayoutParamsParser.java:140)
+	at com.android.ide.eclipse.adt.internal.sdk.AndroidTargetParser.collectPreferenceClasses(AndroidTargetParser.java:497)
+	at com.android.ide.eclipse.adt.internal.sdk.AndroidTargetParser.run(AndroidTargetParser.java:166)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$6.run(Sdk.java:680)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+Caused by: java.lang.ClassNotFoundException: Prohibited package name: java.lang
+	at com.android.ide.eclipse.adt.internal.sdk.AndroidJarLoader.findClass(AndroidJarLoader.java:313)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+	... 12 more

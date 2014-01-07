@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+/Users/jbentleymusic/Desktop/java2_Bentley2/.metadata/.plugins/org.eclipse.jdt.core
+806372934.index
+2678572620.index
