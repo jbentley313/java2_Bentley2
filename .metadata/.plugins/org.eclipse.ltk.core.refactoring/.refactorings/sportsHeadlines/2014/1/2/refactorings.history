@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extracts string &apos;Sports Headlines&apos; into R.string.sports_headlines" description="Extracts string &apos;Sports Headlines&apos; into R.string.sports_headlines" file="/sportsHeadlines/res/layout/activity_main.xml" flags="6" id="com.android.ide.eclipse.adt.refactoring.extract.string" mode="EDIT_SOURCE" proj="/sportsHeadlines" rplc-all-java="false" rplc-all-xml="false" sel-end="616" sel-start="616" stamp="1389133006003" tok-esc="Sports Headlines" xml-attr-name="android:text"/>
+</session>
