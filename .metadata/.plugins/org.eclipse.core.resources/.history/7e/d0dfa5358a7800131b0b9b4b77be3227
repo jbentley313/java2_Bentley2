@@ -1,8 +1,10 @@
 package com.jbentley.sportsheadlines;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -120,13 +122,20 @@ public class MainActivity extends Activity {
 				JSONObject feedObject = feed.getJSONObject(i);
 				String headline = feedObject.getString("headline");
 				String lastMod = feedObject.getString("lastModified");
+				String formDate = null;
 				
-				 
+				 Date sdf = new SimpleDateFormat("MMM d, yyyy 'at' h:mm a", Locale.US).parse(lastMod);
+				 try {
+					 return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(sdf);					
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				
 				HashMap<String, String> displayMap = new HashMap<String, String>();
 				displayMap.put("headline", headline);
-				displayMap.put("lastMod", lastMod);
+				displayMap.put("lastMod", formDate);
 				
 				mylist.add(displayMap);
 			}

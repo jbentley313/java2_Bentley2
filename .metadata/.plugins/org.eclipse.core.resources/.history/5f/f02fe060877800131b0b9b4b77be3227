@@ -3,6 +3,7 @@ package com.jbentley.sportsheadlines;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -121,12 +122,18 @@ public class MainActivity extends Activity {
 				String headline = feedObject.getString("headline");
 				String lastMod = feedObject.getString("lastModified");
 				
-				 
+				 SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy 'at' h:mm a", Locale.US);
+
+			        
+			        
+//			        String passDate = resultdate.toString();
+			        
+			        String formattedDate = sdf.format(lastMod);
 				
 				
 				HashMap<String, String> displayMap = new HashMap<String, String>();
 				displayMap.put("headline", headline);
-				displayMap.put("lastMod", lastMod);
+				displayMap.put("lastMod", formattedDate);
 				
 				mylist.add(displayMap);
 			}

@@ -1,10 +1,8 @@
 package com.jbentley.sportsheadlines;
 
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,9 +118,6 @@ public class MainActivity extends Activity {
 				JSONObject feedObject = feed.getJSONObject(i);
 				String headline = feedObject.getString("headline");
 				String lastMod = feedObject.getString("lastModified");
-				
-				 
-				
 				
 				HashMap<String, String> displayMap = new HashMap<String, String>();
 				displayMap.put("headline", headline);
