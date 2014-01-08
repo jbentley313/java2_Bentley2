@@ -1,3 +1,12 @@
+/*
+ * project sportsHeadlines
+ * 
+ * package coml.jbentley.utils
+ * 
+ * @author Jason Bentley
+ * 
+ * date Jan 8, 2014
+ */
 package coml.jbentley.utils;
 
 import java.io.BufferedInputStream;

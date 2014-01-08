@@ -1,8 +1,19 @@
+/*
+ * project sportsHeadlines
+ * 
+ * package com.jbentley.sportsheadlines
+ * 
+ * @author Jason Bentley
+ * 
+ * date Jan 8, 2014
+ */
 package com.jbentley.sportsheadlines;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -33,7 +44,6 @@ import com.jbentley.connectivityPackage.connectivityClass;
 
 public class MainActivity extends Activity {
 	static  String Tag = "MAINACTIVITY";
-	//	private TextView titleTextView;
 	private Button firstButton;
 	private TextView resultText;
 	FileManager fileManager;
@@ -48,7 +58,6 @@ public class MainActivity extends Activity {
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
 		firstButton = (Button) this.findViewById(R.id.firstButton);
-		//        titleTextView = (TextView) this.findViewById(R.id.titleTextView);
 		fileManager = FileManager.getInstance();
 		connectivityClass connectionCheck = new connectivityClass();
 		mContext = this;
@@ -76,12 +85,16 @@ public class MainActivity extends Activity {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 						Log.e("handleMessage", e.getMessage().toString());
+						
 					}
 
 				}
+				
 			}
 
 		};
+		
+		
 		Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
 
 
@@ -121,12 +134,22 @@ public class MainActivity extends Activity {
 				String headline = feedObject.getString("headline");
 				String lastMod = feedObject.getString("lastModified");
 				
-				 
+				//2014-01-08T15:28:38Z
+				Date date;
+				date = null;
+				try {
+					date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).parse(lastMod);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					Log.e("ERRORDATE", e.getMessage().toString());
+				}
+				String time = new SimpleDateFormat("MM-dd ' at 'h:mm a " , Locale.US).format(date);
 				
 				
 				HashMap<String, String> displayMap = new HashMap<String, String>();
 				displayMap.put("headline", headline);
-				displayMap.put("lastMod", lastMod);
+				displayMap.put("lastMod", time);
 				
 				mylist.add(displayMap);
 			}
