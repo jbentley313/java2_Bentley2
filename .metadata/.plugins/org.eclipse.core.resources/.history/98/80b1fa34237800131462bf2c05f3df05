@@ -1,0 +1,79 @@
+package coml.jbentley.utils;
+
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import android.content.Context;
+import android.util.Log;
+
+public class FileManager {
+	private static FileManager _instance;
+
+	private FileManager() {
+
+	}
+
+	public static FileManager getInstance() {
+		if (_instance == null) {
+			_instance = new FileManager();
+		}
+		return _instance;
+	}
+
+	public Boolean writeStringFile(Context context, String filename,
+			String content) {
+		Boolean dataResult = false;
+
+		FileOutputStream fos = null;
+		try {
+			fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
+			fos.write(content.getBytes());
+		} catch (FileNotFoundException e) {
+			Log.e("Error Writing File", e.getMessage().toString());
+		} catch (IOException e) {
+			Log.e("Error IOException", e.getMessage().toString());
+		}
+
+		Log.i("FileManager", "Saved!!!");
+
+		return dataResult;
+	}
+
+	/**
+	 * Read string file.
+	 */
+	public static String readStringFile(Context context, String filename) {
+		String content = "";
+
+		FileInputStream fis = null;
+
+		try {
+			fis = context.openFileInput(filename);
+			BufferedInputStream biStream = new BufferedInputStream(fis);
+			byte[] contentBytes = new byte[1024];
+			int bytesRead = 0;
+			StringBuffer contentBuffer = new StringBuffer();
+			while ((bytesRead = biStream.read(contentBytes)) != -1) {
+				content = new String(contentBytes, 0, bytesRead);
+				contentBuffer.append(content);
+			}
+			content = contentBuffer.toString();
+
+		} catch (Exception e) {
+			Log.e("Read File Error", e.toString());
+
+		} finally {
+			try {
+				fis.close();
+			} catch (IOException e) {
+				Log.e("Error Read String File Close", e.toString());
+			}
+
+		}
+		return content;
+	}
+
+}

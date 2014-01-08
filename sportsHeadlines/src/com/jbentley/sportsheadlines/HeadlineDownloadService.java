@@ -22,7 +22,7 @@ public class HeadlineDownloadService extends IntentService{
 	static String Tag = "HeadlineDownloadService";
 	public static final String MESSENGER_KEY = "messenger";
 	public static String responseString = "";
-
+	final connectivityClass connectionCheck = new connectivityClass();
 	public HeadlineDownloadService() {
 		
 		super("headlineDownloadService");
@@ -37,7 +37,7 @@ public class HeadlineDownloadService extends IntentService{
 		URL headlineURL;
 		headlineURL = null;
 
-
+		
 		try {
 			headlineURL = new URL(
 					"http://api.espn.com/v1/now?apikey=bbjwshe7tha4pnppmf7jsjwn");
@@ -57,6 +57,7 @@ public class HeadlineDownloadService extends IntentService{
 					message.obj = responseString;
 
 					try {
+						Log.i(Tag, "sending messege");
 						messenger.send(message);
 					} catch (RemoteException e) {
 						// TODO Auto-generated catch block
@@ -68,6 +69,7 @@ public class HeadlineDownloadService extends IntentService{
 	public static String getHeadlines(URL url) {
 		Log.i(Tag, "getHeadlines called");
 		String response = "";
+		
 		try {
 			URLConnection connect = url.openConnection();
 			BufferedInputStream bufferInputStream = new BufferedInputStream(
