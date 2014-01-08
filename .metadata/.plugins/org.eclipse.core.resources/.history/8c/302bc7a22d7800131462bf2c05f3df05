@@ -54,7 +54,6 @@ public class MainActivity extends Activity {
 						response = (String) msg.obj;
 						//save data then display here
 						fileManager.writeStringFile(mContext, filename, response);
-						resultText.setText("Done.");
 					} 
 					catch (Exception e) 
 					{

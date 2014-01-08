@@ -9,7 +9,6 @@ import android.os.Messenger;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +53,6 @@ public class MainActivity extends Activity {
 						response = (String) msg.obj;
 						//save data then display here
 						fileManager.writeStringFile(mContext, filename, response);
-						resultText.setText("Done.");
 					} 
 					catch (Exception e) 
 					{
@@ -73,11 +71,9 @@ public class MainActivity extends Activity {
 		Intent downloadIntent = new Intent(this, HeadlineDownloadService.class);
 		downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
 		
-		if (connectionCheck.connectionStatus(mContext)){
+		if(connectionCheck.connectionStatus(mContext)){
 		startService(downloadIntent);
 		resultText.setText("Loading...");
-		} else {
-			Toast.makeText(mContext, "No Network Connection Detected", Toast.LENGTH_LONG).show();
 		}
 	}
 }

@@ -58,12 +58,12 @@ public class FileManager {
 			BufferedInputStream biStream = new BufferedInputStream(fis);
 			byte[] contentBytes = new byte[1024];
 			int bytesRead = 0;
-			StringBuffer contentBuff = new StringBuffer();
+			StringBuffer contentBuffer = new StringBuffer();
 			while ((bytesRead = biStream.read(contentBytes)) != -1) {
 				content = new String(contentBytes, 0, bytesRead);
-				contentBuff.append(content);
+				contentBuffer.append(content);
 			}
-			content = contentBuff.toString();
+			content = contentBuffer.toString();
 
 		} catch (Exception e) {
 			Log.e("Read File Error", e.toString());
@@ -72,7 +72,7 @@ public class FileManager {
 			try {
 				fis.close();
 			} catch (IOException e) {
-				Log.e("Read String File fis.close", e.toString());
+				Log.e("Read String File Close", e.toString());
 			}
 
 		}
