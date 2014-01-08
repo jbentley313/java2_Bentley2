@@ -48,8 +48,8 @@ public class HeadlineDownloadService extends IntentService{
 		Messenger messenger = (Messenger) extras.get(MESSENGER_KEY);
 		URL headlineURL;
 		headlineURL = null;
-
-		if (connectionCheck.connectionStatus(this)){
+mContext = this;
+		if (connectionCheck.connectionStatus(mContext)){
 			try {
 				headlineURL = new URL(
 						"http://api.espn.com/v1/now?apikey=bbjwshe7tha4pnppmf7jsjwn");
@@ -63,9 +63,7 @@ public class HeadlineDownloadService extends IntentService{
 				Log.e("HEADLINEDOWNLOAD", e.getMessage().toString());
 			}
 			} else {
-//				Toast.makeText(getApplicationContext(), "No Network Connection Detected", Toast.LENGTH_LONG).show();
-//				Log.d("NO", "called too many");
-				
+				Toast.makeText(mContext, "No Network Connection Detected", Toast.LENGTH_LONG).show();
 			}
 		
 

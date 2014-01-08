@@ -42,10 +42,6 @@ import com.jbentley.sportsheadlines.HeadlineDownloadService;
 import coml.jbentley.utils.FileManager;
 import com.jbentley.connectivityPackage.connectivityClass;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class MainActivity.
- */
 public class MainActivity extends Activity {
 	static  String Tag = "MAINACTIVITY";
 	private Button firstButton;
@@ -54,7 +50,6 @@ public class MainActivity extends Activity {
 	String filename = "headlineFile";
 	Context mContext;
 	ListView listview;
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +61,8 @@ public class MainActivity extends Activity {
 		fileManager = FileManager.getInstance();
 		final connectivityClass connectionCheck = new connectivityClass();
 		mContext = this;
-
-		//handler for headlinedownload service
 		Handler headlineDownloadHandler = new Handler() {
+
 			@Override
 			public void handleMessage(Message msg) {
 				Log.i(Tag, "handleMessage called");
@@ -82,9 +76,8 @@ public class MainActivity extends Activity {
 					try {
 						response = (String) msg.obj;
 						if (connectionCheck.connectionStatus(mContext)){
-
-							//save data then display here
-							fileManager.writeStringFile(mContext, filename, response);
+						//save data then display here
+						fileManager.writeStringFile(mContext, filename, response);
 						}
 						resultText.setText("Done.");
 						displayData();
@@ -103,18 +96,18 @@ public class MainActivity extends Activity {
 
 		};
 
-		//messenger for intent
+
 		Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
 
-		//intent to call HeadlineDownloadService to download headlines
+
 		Intent downloadIntent = new Intent(this, HeadlineDownloadService.class);
 		downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
 
-		//start the intent
+
 		startService(downloadIntent);
 		resultText.setText("Loading...");
 
-		//inflate the listview 
+
 		listview = (ListView) this.findViewById(R.id.list);
 		View list_header = this.getLayoutInflater().inflate(R.layout.list_header, null);
 		listview.addHeaderView(list_header);
@@ -122,14 +115,11 @@ public class MainActivity extends Activity {
 
 	}
 
-	/**
-	 * Display data displays the saved data from storage
-	 */
 	public void displayData() {
 		Log.i(Tag, "displayData called");
 		String JSONString = FileManager.readStringFile(this, filename);
 		connectivityClass connectionCheck = new connectivityClass();
-
+		
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 		JSONObject job = null;
 		JSONArray feed = null;
@@ -140,7 +130,6 @@ public class MainActivity extends Activity {
 			int feedSize = feed.length();
 			resultText.setText("Displaying " + String.valueOf(feedSize) + " headlines");
 
-			//loop through saved data and display
 			for (int i = 0; i < feedSize; i++) {
 				JSONObject feedObject = feed.getJSONObject(i);
 				String headline = feedObject.getString("headline");
@@ -156,19 +145,17 @@ public class MainActivity extends Activity {
 					e.printStackTrace();
 					Log.e("ERRORDATE", e.getMessage().toString());
 				}
-
 				String time = new SimpleDateFormat("MM-dd ' at 'h:mm a " , Locale.US).format(date);
+
 
 				HashMap<String, String> displayMap = new HashMap<String, String>();
 				displayMap.put("headline", headline);
 				displayMap.put("lastMod", time);
 
-				//add displayMap to mylist
 				mylist.add(displayMap);
-
+				
 			}
 
-			//adapter to display
 			SimpleAdapter adapter = new SimpleAdapter(this, mylist, R.layout.list_row, new String[] 
 					{"headline", "lastMod"}, new int[]{R.id.headline, R.id.dateMod });
 
@@ -178,10 +165,10 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// Connection checker to notify user of no connection when displaying saved data
-		if (!connectionCheck.connectionStatus(mContext)){
-			Toast.makeText(mContext, "No network connection detected!", Toast.LENGTH_LONG).show();
-		}
+// Connection checker to notify user of no connection when displaying saved data
+if (!connectionCheck.connectionStatus(mContext)){
+	Toast.makeText(mContext, "No network connection detected!", Toast.LENGTH_LONG).show();
+}
 
 	}
 }

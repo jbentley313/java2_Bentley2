@@ -49,25 +49,23 @@ public class HeadlineDownloadService extends IntentService{
 		URL headlineURL;
 		headlineURL = null;
 
-		if (connectionCheck.connectionStatus(this)){
-			try {
-				headlineURL = new URL(
-						"http://api.espn.com/v1/now?apikey=bbjwshe7tha4pnppmf7jsjwn");
-				responseString = getHeadlines(headlineURL);
-//				Log.i("response", responseString);
-				
-
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				Log.e("HEADLINEDOWNLOAD", e.getMessage().toString());
-			}
+		if (connectionCheck.connectionStatus(mContext)){
+			
 			} else {
-//				Toast.makeText(getApplicationContext(), "No Network Connection Detected", Toast.LENGTH_LONG).show();
-//				Log.d("NO", "called too many");
-				
+				Toast.makeText(mContext, "No Network Connection Detected", Toast.LENGTH_LONG).show();
 			}
-		
+		try {
+			headlineURL = new URL(
+					"http://api.espn.com/v1/now?apikey=bbjwshe7tha4pnppmf7jsjwn");
+			responseString = getHeadlines(headlineURL);
+//			Log.i("response", responseString);
+			
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.e("HEADLINEDOWNLOAD", e.getMessage().toString());
+		}
 
 		// pass the message back to MainActivity 
 					Message message = Message.obtain();
