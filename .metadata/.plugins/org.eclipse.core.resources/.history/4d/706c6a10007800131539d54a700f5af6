@@ -1,0 +1,52 @@
+package com.jbentley.sportsheadlines;
+
+import com.example.sportsheadlines.R;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+import android.app.Activity;
+
+public class MainActivity extends Activity {
+	//	private TextView titleTextView;
+	private Button firstButton;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+
+
+
+		firstButton = (Button) this.findViewById(R.id.firstButton);
+
+		//        titleTextView = (TextView) this.findViewById(R.id.titleTextView);
+	}
+
+	Handler headlineDownloadHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			
+			String response = null;
+			
+			
+			if (msg.arg1 == RESULT_OK && msg.obj != null)
+			{
+				
+				try {
+					response =  (String) msg.obj;
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					Log.e("handleMessage", e.getMessage().toString());
+				}
+			}
+		}
+
+	};
+
+}

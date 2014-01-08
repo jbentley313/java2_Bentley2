@@ -1,1 +1,5 @@
 1389133006003	Extracts string 'Sports Headlines' into R.string.sports_headlines
+1389141109872	Delete element
+1389141195870	Move file
+1389141359988	Rename package 'com.example.sportsheadlines'
+1389144055028	Rename type 'headlineDownloadService'
