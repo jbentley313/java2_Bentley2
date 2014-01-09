@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +49,6 @@ import com.jbentley.connectivityPackage.connectivityClass;
  */
 public class MainActivity extends Activity {
 	static  String Tag = "MAINACTIVITY";
-	private Button firstButton;
 	private TextView resultText;
 	FileManager fileManager;
 	String filename = "headlineFile";
@@ -62,7 +62,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
-		firstButton = (Button) this.findViewById(R.id.firstButton);
 		fileManager = FileManager.getInstance();
 		final connectivityClass connectionCheck = new connectivityClass();
 		mContext = this;
@@ -133,7 +132,7 @@ public class MainActivity extends Activity {
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
 		JSONObject job = null;
 		JSONArray feed = null;
-
+		String formattedDate = null;
 		try {
 			job = new JSONObject(JSONString);
 			feed = job.getJSONArray("feed");
@@ -146,22 +145,26 @@ public class MainActivity extends Activity {
 				String headline = feedObject.getString("headline");
 				String lastMod = feedObject.getString("lastModified");
 
-				//2014-01-08T15:28:38Z
-				Date date;
-				date = null;
+				//date pattern for passed date
+				SimpleDateFormat originalDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+
+				//get timezone
+				originalDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+				Date date = null;
+
+				//parse passed date and then format it
 				try {
-					date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US).parse(lastMod);
+					date = originalDateFormat.parse(lastMod);
+					formattedDate = new SimpleDateFormat("E' at 'h:mm a " , Locale.US).format(date);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					Log.e("ERRORDATE", e.getMessage().toString());
 				}
 
-				String time = new SimpleDateFormat("MM-dd ' at 'h:mm a " , Locale.US).format(date);
-
+				//hashmap for listview
 				HashMap<String, String> displayMap = new HashMap<String, String>();
 				displayMap.put("headline", headline);
-				displayMap.put("lastMod", time);
+				displayMap.put("lastMod", formattedDate);
 
 				//add displayMap to mylist
 				mylist.add(displayMap);
@@ -184,4 +187,5 @@ public class MainActivity extends Activity {
 		}
 
 	}
+
 }

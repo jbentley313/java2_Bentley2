@@ -19,14 +19,11 @@ import android.app.Activity;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.jbentley.connectivityPackage.*;
 
 public class HeadlineDownloadService extends IntentService{
@@ -36,12 +33,13 @@ public class HeadlineDownloadService extends IntentService{
 	final connectivityClass connectionCheck = new connectivityClass();
 	Context mContext;
 	public HeadlineDownloadService() {
-		
+
 		super("headlineDownloadService");
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
+	//onHandleIntent receives intent and downloads the latest espn headlines
 	protected void onHandleIntent(Intent intent) {
 		Log.i(Tag, "onHandleIntent called");
 		Bundle extras = intent.getExtras();
@@ -54,40 +52,41 @@ public class HeadlineDownloadService extends IntentService{
 				headlineURL = new URL(
 						"http://api.espn.com/v1/now?apikey=bbjwshe7tha4pnppmf7jsjwn");
 				responseString = getHeadlines(headlineURL);
-//				Log.i("response", responseString);
-				
+				//				Log.i("response", responseString);
+
 
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				Log.e("HEADLINEDOWNLOAD", e.getMessage().toString());
 			}
-			} else {
-//				Toast.makeText(getApplicationContext(), "No Network Connection Detected", Toast.LENGTH_LONG).show();
-//				Log.d("NO", "called too many");
-				
-			}
-		
+		} else {
+			//				Toast.makeText(getApplicationContext(), "No Network Connection Detected", Toast.LENGTH_LONG).show();
+			//				Log.d("NO", "called too many");
+
+		}
+
 
 		// pass the message back to MainActivity 
-					Message message = Message.obtain();
-					message.arg1 = Activity.RESULT_OK;
-					message.obj = responseString;
+		Message message = Message.obtain();
+		message.arg1 = Activity.RESULT_OK;
+		message.obj = responseString;
 
-					try {
-						Log.i(Tag, "sending messege");
-						messenger.send(message);
-					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-		
+		try {
+			Log.i(Tag, "sending messege");
+			messenger.send(message);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
+	//open a connection to download headlines
 	public static String getHeadlines(URL url) {
 		Log.i(Tag, "getHeadlines called");
 		String response = "";
-		
+
 		try {
 			URLConnection connect = url.openConnection();
 			BufferedInputStream bufferInputStream = new BufferedInputStream(
@@ -109,6 +108,6 @@ public class HeadlineDownloadService extends IntentService{
 
 	}
 
-	
-	
+
+
 }
