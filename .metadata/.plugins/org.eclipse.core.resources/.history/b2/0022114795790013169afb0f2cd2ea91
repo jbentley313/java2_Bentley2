@@ -103,7 +103,6 @@ public class HeadlineDownloadService extends IntentService{
 		} catch (IOException e) {
 			response = "no info passed!";
 			Log.e("IOException", response);
-			Log.e("ERROR", e.getMessage().toString());
 		}
 		return response;
 

@@ -204,7 +204,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	}
 
 	@Override
-	//refresh button (need to implement a three second delay on week2 to prevent too many api calls)
+	//refresh button
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		startService(downloadIntent);

@@ -15,8 +15,7 @@
     <Button
         android:id="@+id/firstButton"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/refresh" />
+        android:layout_height="wrap_content" />
     
     <TextView
         android:id="@+id/resultTextView"

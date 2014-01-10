@@ -31,7 +31,6 @@ import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -49,7 +48,7 @@ import com.jbentley.connectivityPackage.connectivityClass;
 /**
  * The Class MainActivity.
  */
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends Activity {
 	static  String Tag = "MAINACTIVITY";
 	private TextView resultText;
 	FileManager fileManager;
@@ -70,7 +69,6 @@ public class MainActivity extends Activity implements OnClickListener{
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
 		refreshBtn = (Button) this.findViewById(R.id.firstButton);
-		refreshBtn.setOnClickListener(this);
 		
 		fileManager = FileManager.getInstance();
 //		final connectivityClass connectionCheck = new connectivityClass();
@@ -201,13 +199,6 @@ public class MainActivity extends Activity implements OnClickListener{
 			}
 
 		} 
-	}
-
-	@Override
-	//refresh button (need to implement a three second delay on week2 to prevent too many api calls)
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		startService(downloadIntent);
 	}
 	
 	

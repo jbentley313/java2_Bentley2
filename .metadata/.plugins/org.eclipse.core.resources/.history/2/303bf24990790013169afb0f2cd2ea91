@@ -10,7 +10,6 @@
 package com.jbentley.sportsheadlines;
 
 
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -49,31 +47,28 @@ import com.jbentley.connectivityPackage.connectivityClass;
 /**
  * The Class MainActivity.
  */
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends Activity {
 	static  String Tag = "MAINACTIVITY";
 	private TextView resultText;
 	FileManager fileManager;
 	String filename = "headlineFile";
 	Context mContext;
 	ListView listview;
-	 Button refreshBtn = null;
 	connectivityClass connectionCheck;
-	Intent downloadIntent;
+
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		connectionCheck = new connectivityClass();
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
-		refreshBtn = (Button) this.findViewById(R.id.firstButton);
-		refreshBtn.setOnClickListener(this);
-		
+
 		fileManager = FileManager.getInstance();
-//		final connectivityClass connectionCheck = new connectivityClass();
+		final connectivityClass connectionCheck = new connectivityClass();
 		mContext = this;
 
 		//handler for headlinedownload service
@@ -95,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener{
 							//save data then display here
 							fileManager.writeStringFile(mContext, filename, response);
 						}
-						resultText.setText("Nothing to display, check network connection");
+						resultText.setText("Done.");
 						displayData();
 					} 
 					catch (Exception e) 
@@ -116,7 +111,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
 
 		//intent to call HeadlineDownloadService to download headlines
-		 downloadIntent = new Intent(this, HeadlineDownloadService.class);
+		Intent downloadIntent = new Intent(this, HeadlineDownloadService.class);
 		downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
 
 		//start the intent
@@ -129,7 +124,6 @@ public class MainActivity extends Activity implements OnClickListener{
 		listview.addHeaderView(list_header);
 
 
-		
 	}
 
 	/**
@@ -138,8 +132,7 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void displayData() {
 		Log.i(Tag, "displayData called");
 
-		File file = getApplicationContext().getFileStreamPath(filename);
-		if(file.exists()) {
+		if (connectionCheck.connectionStatus(mContext)) {
 			String JSONString = FileManager.readStringFile(this, filename);
 			//		connectivityClass connectionCheck = new connectivityClass();
 
@@ -200,15 +193,8 @@ public class MainActivity extends Activity implements OnClickListener{
 				Toast.makeText(mContext, "No network connection detected!", Toast.LENGTH_LONG).show();
 			}
 
-		} 
+		} else {
+			Toast.makeText(mContext, "No Network Connection Detected, nothing to display", Toast.LENGTH_LONG).show();
+		}
 	}
-
-	@Override
-	//refresh button (need to implement a three second delay on week2 to prevent too many api calls)
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		startService(downloadIntent);
-	}
-	
-	
 }

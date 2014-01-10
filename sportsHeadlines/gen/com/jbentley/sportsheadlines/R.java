@@ -48,6 +48,7 @@ public final class R {
         public static final int headline=0x7f050004;
         public static final int hello_world=0x7f050002;
         public static final int last_modified=0x7f050005;
+        public static final int refresh=0x7f050006;
         public static final int sports_headlines=0x7f050003;
     }
     public static final class style {
