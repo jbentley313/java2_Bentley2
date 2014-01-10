@@ -74,7 +74,6 @@ public class FileManager {
 		Log.i(Tag, "readStringFile called");
 		FileInputStream fis = null;
 
-		
 		try {
 			fis = context.openFileInput(filename);
 			BufferedInputStream biStream = new BufferedInputStream(fis);
