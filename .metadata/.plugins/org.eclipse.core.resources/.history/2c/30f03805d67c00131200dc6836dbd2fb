@@ -1,0 +1,52 @@
+package com.jbentley.sportsheadlines;
+
+import org.json.JSONObject;
+
+import android.os.Bundle;
+import android.app.Activity;
+import android.util.Log;
+import android.view.Menu;
+
+public class HeadlineActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_headline);
+		Bundle data = getIntent().getExtras();
+		if(data != null){
+		  String myString = data.getString("headlineObject");
+		  Log.i("blah", myString);
+		  
+		  
+		  String[] fullHeadlineString = myString.toString().split("description");
+			String firstHalf = fullHeadlineString[0];
+			String secondHalf = fullHeadlineString[1];
+			Log.i("FIRSTH", firstHalf);
+			Log.i("SECONDH", secondHalf);
+			
+			String[] secondString = myString.toString().split("=");
+			String firstHalf2 = secondString[0];
+			String secondHalf2 = secondString[1];
+			Log.i("FIRSTH", firstHalf2);
+			Log.i("SECONDH", secondHalf2);
+			
+			String[] thirdString = myString.toString().split("=");
+			String firstHalf3 = thirdString[0];
+			String secondHalf3 = thirdString[1];
+			Log.i("FIRSTH", firstHalf3);
+			Log.i("SECONDH", secondHalf3);
+			
+			String[] fourthString = myString.toString().split("=");
+			String firstHalf4 = fourthString[0];
+			String secondHalf4 = fourthString[1];
+			Log.i("FIRSTH", firstHalf4);
+			Log.i("SECONDH", secondHalf4);
+			
+			
+		}
+	}
+
+	
+
+}
