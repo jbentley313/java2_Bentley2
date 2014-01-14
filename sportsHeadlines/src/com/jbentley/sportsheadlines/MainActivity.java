@@ -23,7 +23,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.jbentley.sportsheadlines.R;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +31,8 @@ import android.os.Messenger;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -49,7 +50,7 @@ import com.jbentley.connectivityPackage.connectivityClass;
 /**
  * The Class MainActivity.
  */
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends Activity implements OnClickListener, OnItemClickListener{
 	static  String Tag = "MAINACTIVITY";
 	private TextView resultText;
 	FileManager fileManager;
@@ -127,6 +128,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		listview = (ListView) this.findViewById(R.id.list);
 		View list_header = this.getLayoutInflater().inflate(R.layout.list_header, null);
 		listview.addHeaderView(list_header);
+		listview.setOnItemClickListener(this);
 
 
 		
@@ -158,6 +160,13 @@ public class MainActivity extends Activity implements OnClickListener{
 					JSONObject feedObject = feed.getJSONObject(i);
 					String headline = feedObject.getString("headline");
 					String lastMod = feedObject.getString("lastModified");
+					String description = feedObject.getString("description");
+					JSONObject links = feedObject.getJSONObject("links");
+					String moreLinks = links.getString("web");
+					
+					
+					
+					
 
 					//date pattern for passed date
 					SimpleDateFormat originalDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
@@ -177,8 +186,14 @@ public class MainActivity extends Activity implements OnClickListener{
 
 					//hashmap for listview
 					HashMap<String, String> displayMap = new HashMap<String, String>();
+					displayMap.put("description", description);
+					
 					displayMap.put("headline", headline);
+					
 					displayMap.put("lastMod", formattedDate);
+					
+					displayMap.put("links", moreLinks);
+					
 
 					//add displayMap to mylist
 					mylist.add(displayMap);
@@ -208,6 +223,26 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		startService(downloadIntent);
+	}
+
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+			long arg3) {
+		// TODO Auto-generated method stub
+		Object obj = listview.getItemAtPosition(position);
+		String value= obj.toString();
+
+		Log.i(" has", value);
+
+		
+		Intent headlineIntent = new Intent(this, HeadlineActivity.class);
+		headlineIntent.putExtra("headlineObject",  value);
+
+		startActivity(headlineIntent, null);
+	}
+
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

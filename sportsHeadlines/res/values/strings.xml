@@ -8,5 +8,8 @@
     <string name="headline">Headline</string>
     <string name="last_modified">Last Modified</string>
     <string name="refresh">Refresh</string>
+    <string name="title_activity_headline_display">HeadlineDisplay</string>
+    <string name="title_activity_display_headlines">DisplayHeadlines</string>
+    <string name="title_activity_headline">HeadlineActivity</string>
 
 </resources>

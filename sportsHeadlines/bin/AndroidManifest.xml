@@ -26,8 +26,13 @@
             </intent-filter>
         </activity>
 
-        <service android:name="HeadlineDownloadService" >
+        <service android:name="com.jbentley.sportsheadlines.HeadlineDownloadService" >
         </service>
+
+        <activity
+            android:name="com.jbentley.sportsheadlines.HeadlineActivity"
+            android:label="@string/title_activity_headline" >
+        </activity>
     </application>
 
 </manifest>
