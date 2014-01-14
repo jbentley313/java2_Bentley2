@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class HeadlineActivity extends Activity {
 	TextView headDescrip;
+	TextView head;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +18,7 @@ public class HeadlineActivity extends Activity {
 		setContentView(R.layout.activity_headline);
 		
 		headDescrip = (TextView) this.findViewById(R.id.HeadlineTitleTextView);
+		head = (TextView) this.findViewById(R.id.HeadlineHeadTextView);
 		
 		Bundle data = getIntent().getExtras();
 		if(data != null){
@@ -35,11 +37,41 @@ public class HeadlineActivity extends Activity {
 			String secondHalf2 = descript1[1];
 			Log.i("2", firstHalf2);
 			Log.i("22", secondHalf2);
-			String newPassedDescription = secondHalf2.replace(", lastMod", "");
-			Log.i("desc", newPassedDescription);
+			String newPassedHead = secondHalf2.replace(", lastMod", "");
+			Log.i("desc", newPassedHead);
 			
 			
-			headDescrip.setText(newPassedDescription);
+			
+			
+			String[] urlP = firstHalf.toString().split("href");
+			Log.i("hrefsplit0", urlP[0]);
+			Log.i("hrefsplit1", urlP[1]);
+			
+			String[] urlSplit = urlP[1].split("http:");
+			Log.i("urlSplit0", urlSplit[0]);
+			Log.i("urlSplit1", urlSplit[1]);
+			
+			String urlSplitStrip = urlSplit[1].replace("\"},", "");
+			Log.i("Str", urlSplitStrip);
+			String urlFinal = urlSplitStrip.replace("\\/\\/", ""); 
+			Log.i("urlFinal", urlFinal);
+			
+			String urlPassed = urlFinal.replace("\\", "");
+			Log.i("finpass", urlPassed);
+			
+			String headLineSt = urlP[0];
+			Log.i("hlt", headLineSt);
+			
+			String[] splitHLs= headLineSt.split("=");
+			Log.i("splitbrackHL", splitHLs[1]);
+			
+			String[] headlinePassed = splitHLs[1].split(", links");
+			Log.i("splitHead", headlinePassed[0]);
+			
+			head.setText(newPassedHead);
+			headDescrip.setText(headlinePassed[0]);
+			
+			
 //			String[] pdescription = 
 //			String[] thirdString = myString.toString().split("=");
 //			String firstHalf3 = thirdString[0];

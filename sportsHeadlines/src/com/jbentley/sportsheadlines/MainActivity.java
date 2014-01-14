@@ -228,6 +228,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 			long arg3) {
 		// TODO Auto-generated method stub
+		if (position !=0){
 		Object obj = listview.getItemAtPosition(position);
 		String value= obj.toString();
 
@@ -238,6 +239,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		headlineIntent.putExtra("headlineObject",  value);
 
 		startActivity(headlineIntent, null);
+		}
 	}
 
 	public void onNothingSelected(AdapterView<?> arg0) {
