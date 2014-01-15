@@ -302,10 +302,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		
 			Log.i(" has", value);
 
-			Intent headlineIntent = new Intent(this, HeadlineActivity.class);
-			headlineIntent.putExtra("headlineObject",  value);
-
-			startActivity(headlineIntent, null);
+//			Intent headlineIntent = new Intent(this, HeadlineActivity.class);
+//			headlineIntent.putExtra("headlineObject",  value);
+//
+//			startActivity(headlineIntent, null);
 		}
 	}
 
