@@ -11,6 +11,7 @@ package com.jbentley.sportsheadlines;
 
 
 import java.io.File;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,12 +19,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,8 +39,6 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-
 import com.jbentley.sportsheadlines.HeadlineDownloadService;
 import coml.jbentley.utils.FileManager;
 import com.jbentley.connectivityPackage.connectivityClass;
@@ -58,72 +54,25 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	String filename = "headlineFile";
 	Context mContext;
 	ListView listview;
-	 Button refreshBtn = null;
+	Button refreshBtn = null;
 	connectivityClass connectionCheck;
 	Intent downloadIntent;
 	Object obj;
+	ArrayList<HashMap<String, String>>  mylist;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.activity_main);
-		
+
 		connectionCheck = new connectivityClass();
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
 		refreshBtn = (Button) this.findViewById(R.id.firstButton);
 		refreshBtn.setOnClickListener(this);
-		
-		fileManager = FileManager.getInstance();
-//		final connectivityClass connectionCheck = new connectivityClass();
 		mContext = this;
 
-		//handler for headlinedownload service
-		Handler headlineDownloadHandler = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				Log.i(Tag, "handleMessage called");
-
-				String response = null;
-
-
-				if (msg.arg1 == RESULT_OK && msg.obj != null)
-				{
-
-					try {
-						response = (String) msg.obj;
-						if (connectionCheck.connectionStatus(mContext)){
-
-							//save data then display here
-							fileManager.writeStringFile(mContext, filename, response);
-						}
-						resultText.setText("Nothing to display, check network connection");
-						displayData();
-					} 
-					catch (Exception e) 
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						Log.e("handleMessage", e.getMessage().toString());
-
-					}
-
-				}
-
-			}
-
-		};
-
-		//messenger for intent
-		Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
-
-		//intent to call HeadlineDownloadService to download headlines
-		 downloadIntent = new Intent(this, HeadlineDownloadService.class);
-		downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
-
-		//start the intent
-		startService(downloadIntent);
-		resultText.setText("Loading...");
 
 		//inflate the listview 
 		listview = (ListView) this.findViewById(R.id.list);
@@ -131,8 +80,54 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		listview.addHeaderView(list_header);
 		listview.setOnItemClickListener(this);
 
+		if (savedInstanceState != null) {
+			Log.i("SIS", "In Saved Instance");
+			Toast.makeText(mContext, "THERE IS A SAVED INSTANCE!",
+					Toast.LENGTH_SHORT).show();
+			mylist = (ArrayList<HashMap< String, String>>) savedInstanceState
+					.getSerializable("saved");
+			
+			fileManager = FileManager.getInstance();
 
-		
+			//messenger for intent
+			Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
+
+			//intent to call HeadlineDownloadService to download headlines
+			downloadIntent = new Intent(this, HeadlineDownloadService.class);
+			downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
+			
+			if (mylist != null) {
+
+				// adapter to display saved serialized data on the listview
+				SimpleAdapter adapter = new SimpleAdapter(this, mylist, R.layout.list_row, new String[] 
+						{"headline", "lastMod"}, new int[]{R.id.headline, R.id.dateMod });
+
+				listview.setAdapter(adapter);
+
+			} else {
+				Log.d("MAIN", "myList is Null");
+			}
+
+
+		} else {
+			// if there is no saved instance, go get data and display it
+			fileManager = FileManager.getInstance();
+
+			//messenger for intent
+			Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
+
+			//intent to call HeadlineDownloadService to download headlines
+			downloadIntent = new Intent(this, HeadlineDownloadService.class);
+			downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
+
+			//start the intent
+			startService(downloadIntent);
+			resultText.setText("Loading...");
+
+
+		}
+
+		super.onCreate(savedInstanceState);
 	}
 
 	/**
@@ -141,12 +136,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	public void displayData() {
 		Log.i(Tag, "displayData called");
 
-		File file = getApplicationContext().getFileStreamPath(filename);
+		File file = this.getFileStreamPath(filename);
 		if(file.exists()) {
-			String JSONString = FileManager.readStringFile(this, filename);
+			String JSONString = FileManager.readStringFile(getApplicationContext(), filename);
 			//		connectivityClass connectionCheck = new connectivityClass();
 
-			ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String,String>>();
+			mylist = new ArrayList<HashMap<String,String>>();
 			JSONObject job = null;
 			JSONArray feed = null;
 			String formattedDate = null;
@@ -164,10 +159,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 					String description = feedObject.getString("description");
 					JSONObject links = feedObject.getJSONObject("links");
 					String moreLinks = links.getString("web");
-					
-					
-					
-					
 
 					//date pattern for passed date
 					SimpleDateFormat originalDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
@@ -188,13 +179,13 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 					//hashmap for listview
 					HashMap<String, String> displayMap = new HashMap<String, String>();
 					displayMap.put("description", description);
-					
+
 					displayMap.put("headline", headline);
-					
+
 					displayMap.put("lastMod", formattedDate);
-					
+
 					displayMap.put("links", moreLinks);
-					
+
 
 					//add displayMap to mylist
 					mylist.add(displayMap);
@@ -210,12 +201,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				Log.e("ERROR", e.getMessage().toString());
 			}
 			// Connection checker to notify user of no connection when displaying saved data
 			if (!connectionCheck.connectionStatus(mContext)){
 				Toast.makeText(mContext, "No network connection detected!", Toast.LENGTH_LONG).show();
 			}
-
 		} 
 	}
 
@@ -230,27 +221,66 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			long arg3) {
 		// TODO Auto-generated method stub
 		if (position !=0){
-		 obj = arg0.getItemAtPosition(position);
-		 
-		String value= obj.toString();
+			obj = arg0.getItemAtPosition(position);
 
-		Log.i(" has", value);
-		
-		
-	    
-		
-		
-		Intent headlineIntent = new Intent(this, HeadlineActivity.class);
-		headlineIntent.putExtra("headlineObject",  value);
+			String value= obj.toString();
 
-		startActivity(headlineIntent, null);
+			Log.i(" has", value);
+
+			Intent headlineIntent = new Intent(this, HeadlineActivity.class);
+			headlineIntent.putExtra("headlineObject",  value);
+
+			startActivity(headlineIntent, null);
 		}
 	}
 
 	public void onNothingSelected(AdapterView<?> arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
+
+	//handler for headlinedownload service
+	Handler headlineDownloadHandler = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			Log.i(Tag, "handleMessage called");
+
+			String response = null;
+
+
+			if (msg.arg1 == RESULT_OK && msg.obj != null)
+			{
+
+				try {
+					response = (String) msg.obj;
+					if (connectionCheck.connectionStatus(mContext)){
+
+						//save data then display here
+						fileManager.writeStringFile(mContext, filename, response);
+					}
+					resultText.setText("Nothing to display, check network connection");
+					displayData();
+				} 
+				catch (Exception e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					Log.e("handleMessage", e.getMessage().toString());
+
+				}
+			}
+		}
+	};
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+
+		if (mylist != null && !mylist.isEmpty()) {
+			outState.putSerializable("saved", (Serializable) mylist);
+			Log.i("SAVE INSTANCE", "Saving Instance State data");
+
+		}
+	}
 }

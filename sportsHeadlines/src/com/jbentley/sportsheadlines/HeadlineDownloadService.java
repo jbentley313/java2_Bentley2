@@ -32,6 +32,7 @@ public class HeadlineDownloadService extends IntentService{
 	public static String responseString = "";
 	final connectivityClass connectionCheck = new connectivityClass();
 	Context mContext;
+	
 	public HeadlineDownloadService() {
 
 		super("headlineDownloadService");
