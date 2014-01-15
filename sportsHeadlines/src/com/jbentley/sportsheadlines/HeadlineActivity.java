@@ -1,17 +1,24 @@
 package com.jbentley.sportsheadlines;
 
-import org.json.JSONObject;
+import com.jbentley.connectivityPackage.connectivityClass;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
-import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class HeadlineActivity extends Activity {
+public class HeadlineActivity extends Activity implements OnClickListener{
 	TextView headDescrip;
 	TextView head;
-
+	Button espnBtn;
+	private String urlString;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -19,11 +26,13 @@ public class HeadlineActivity extends Activity {
 		
 		headDescrip = (TextView) this.findViewById(R.id.HeadlineTitleTextView);
 		head = (TextView) this.findViewById(R.id.HeadlineHeadTextView);
+		espnBtn = (Button) this.findViewById(R.id.moreButton);
+		espnBtn.setOnClickListener(this);
 		
 		Bundle data = getIntent().getExtras();
 		if(data != null){
 		  String myString = data.getString("headlineObject");
-		  Log.i("blah", myString);
+		  Log.i("passed string", myString);
 		  
 		  
 		  String[] fullHeadlineString = myString.toString().split("description");
@@ -56,8 +65,8 @@ public class HeadlineActivity extends Activity {
 			String urlFinal = urlSplitStrip.replace("\\/\\/", ""); 
 			Log.i("urlFinal", urlFinal);
 			
-			String urlPassed = urlFinal.replace("\\", "");
-			Log.i("finpass", urlPassed);
+			 urlString = urlFinal.replace("\\", "");
+			Log.i("finpass", urlString);
 			
 			String headLineSt = urlP[0];
 			Log.i("hlt", headLineSt);
@@ -86,6 +95,26 @@ public class HeadlineActivity extends Activity {
 //			Log.i("4", secondHalf4);
 			
 			
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		connectivityClass connectionChecker = new connectivityClass();
+
+		// TODO Auto-generated method stub
+		if (connectionChecker.connectionStatus(this)) {
+
+			Intent intentESPN = new Intent(Intent.ACTION_VIEW,
+					Uri.parse("http://" + urlString));
+
+			startActivity(intentESPN);
+		} else {
+			Toast.makeText(this,
+					"Sorry,  a network connection is required.",
+					Toast.LENGTH_LONG).show();
+
 		}
 	}
 

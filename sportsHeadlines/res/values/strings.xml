@@ -11,5 +11,6 @@
     <string name="title_activity_headline_display">HeadlineDisplay</string>
     <string name="title_activity_display_headlines">DisplayHeadlines</string>
     <string name="title_activity_headline">HeadlineActivity</string>
+    <string name="more_about_this_on_espn">more about this on ESPN</string>
 
 </resources>

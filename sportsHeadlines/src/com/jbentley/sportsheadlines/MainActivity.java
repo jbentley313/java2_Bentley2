@@ -41,6 +41,7 @@ import android.widget.Toast;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 
 import com.jbentley.sportsheadlines.HeadlineDownloadService;
 import coml.jbentley.utils.FileManager;
@@ -60,7 +61,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	 Button refreshBtn = null;
 	connectivityClass connectionCheck;
 	Intent downloadIntent;
-
+	Object obj;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -229,11 +230,15 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			long arg3) {
 		// TODO Auto-generated method stub
 		if (position !=0){
-		Object obj = listview.getItemAtPosition(position);
+		 obj = arg0.getItemAtPosition(position);
+		 
 		String value= obj.toString();
 
 		Log.i(" has", value);
-
+		
+		
+	    
+		
 		
 		Intent headlineIntent = new Intent(this, HeadlineActivity.class);
 		headlineIntent.putExtra("headlineObject",  value);
