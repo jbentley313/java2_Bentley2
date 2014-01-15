@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">sportsHeadlines</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="sports_headlines">Sports Headlines</string>
+    <string name="headline">Headline</string>
+    <string name="last_modified">Last Modified</string>
+    <string name="refresh">Refresh</string>
+    <string name="title_activity_headline_display">HeadlineDisplay</string>
+    <string name="title_activity_display_headlines">DisplayHeadlines</string>
+    <string name="title_activity_headline">HeadlineActivity</string>
+    <string name="more_about_this_on_espn">more about this on ESPN</string>
+
+</resources>

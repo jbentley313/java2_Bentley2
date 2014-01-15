@@ -29,9 +29,11 @@ import android.os.Messenger;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -54,11 +56,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	String filename = "headlineFile";
 	Context mContext;
 	ListView listview;
-	Button refreshBtn = null;
+	Button refreshBtn;
+	Button searchBtn;
 	connectivityClass connectionCheck;
 	Intent downloadIntent;
 	Object obj;
 	ArrayList<HashMap<String, String>>  mylist;
+	EditText searchTxt;
+//	String searchString;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -70,7 +75,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
 		refreshBtn = (Button) this.findViewById(R.id.firstButton);
+		searchBtn = (Button) this.findViewById(R.id.searchButton);
+		searchTxt = (EditText) this.findViewById(R.id.searchTxt);
+		
 		refreshBtn.setOnClickListener(this);
+		searchBtn.setOnClickListener(this);
 		mContext = this;
 
 
@@ -82,11 +91,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		if (savedInstanceState != null) {
 			Log.i("SIS", "In Saved Instance");
-			Toast.makeText(mContext, "THERE IS A SAVED INSTANCE!",
-					Toast.LENGTH_SHORT).show();
+			//			Toast.makeText(mContext, "THERE IS A SAVED INSTANCE!",
+			//					Toast.LENGTH_SHORT).show();
 			mylist = (ArrayList<HashMap< String, String>>) savedInstanceState
 					.getSerializable("saved");
-			
+
 			fileManager = FileManager.getInstance();
 
 			//messenger for intent
@@ -95,7 +104,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			//intent to call HeadlineDownloadService to download headlines
 			downloadIntent = new Intent(this, HeadlineDownloadService.class);
 			downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
-			
+
 			if (mylist != null) {
 
 				// adapter to display saved serialized data on the listview
@@ -214,7 +223,18 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	//refresh button (need to implement a three second delay on week2 to prevent too many api calls)
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		startService(downloadIntent);
+		switch (v.getId()) {
+		case R.id.firstButton:
+			startService(downloadIntent);
+			break;
+
+		case R.id.searchButton:
+			Log.i("SEARCH", "BUTTON");
+			String searchString = searchTxt.getText().toString();
+			Log.i("SearchStrg", searchString);
+			break;
+		}
+
 	}
 
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
@@ -283,4 +303,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		}
 	}
+
+
 }

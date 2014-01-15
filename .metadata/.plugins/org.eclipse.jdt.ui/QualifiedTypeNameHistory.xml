@@ -40,7 +40,6 @@
 <fullyQualifiedTypeName name="android.R"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.HeadlineActivity"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.R.layout"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
 <fullyQualifiedTypeName name="android.database.Cursor"/>
@@ -54,4 +53,5 @@
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.R.id"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
 </qualifiedTypeNameHistroy>
