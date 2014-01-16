@@ -18,8 +18,8 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 	TextView head;
 	Button espnBtn;
 	private String urlString;
-	String newPassedHead;
-	String hlToPassBacktoMainAct;
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 			String secondHalf2 = descript1[1];
 			Log.i("2", firstHalf2);
 			Log.i("22", secondHalf2);
-			 newPassedHead = secondHalf2.replace(", lastMod", "");
+			String newPassedHead = secondHalf2.replace(", lastMod", "");
 			Log.i("desc", newPassedHead);
 			
 			
@@ -81,9 +81,6 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 			
 			String[] headlinePassed = splitHLs[1].split(", links");
 			Log.i("splitHead", headlinePassed[0]);
-			
-			hlToPassBacktoMainAct = headlinePassed[0];
-			
 			
 			head.setText(newPassedHead);
 			headDescrip.setText(headlinePassed[0]);
@@ -129,7 +126,8 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 	@Override
 	public void finish() {
 	    Intent data = new Intent();
-	    data.putExtra("keyA", hlToPassBacktoMainAct);
+	    data.putExtra("keyA", "Holla");
+	    data.putExtra("keyB", "yo!");
 	    setResult(RESULT_OK, data);
 	    super.finish();
 	}

@@ -403,9 +403,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		    Bundle result = data.getExtras();
 		    Log.i("RES", result.toString());
 		    Object aa = result.get("keyA");
-		    Log.i("DescMain", aa.toString());
-		    
-		    Toast.makeText(mContext, "Just read headline: " + aa, Toast.LENGTH_SHORT).show();
+		    Log.i("DFS", aa.toString());
 		    
 		  }
 		}

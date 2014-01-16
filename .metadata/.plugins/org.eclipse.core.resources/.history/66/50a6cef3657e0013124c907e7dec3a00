@@ -397,18 +397,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		}
 	}
-	
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		  if (resultCode == RESULT_OK && requestCode == 0) {
-		    Bundle result = data.getExtras();
-		    Log.i("RES", result.toString());
-		    Object aa = result.get("keyA");
-		    Log.i("DescMain", aa.toString());
-		    
-		    Toast.makeText(mContext, "Just read headline: " + aa, Toast.LENGTH_SHORT).show();
-		    
-		  }
-		}
 
 
 }

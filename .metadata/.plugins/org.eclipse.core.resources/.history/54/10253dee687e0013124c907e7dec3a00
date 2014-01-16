@@ -405,8 +405,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		    Object aa = result.get("keyA");
 		    Log.i("DescMain", aa.toString());
 		    
-		    Toast.makeText(mContext, "Just read headline: " + aa, Toast.LENGTH_SHORT).show();
-		    
 		  }
 		}
 

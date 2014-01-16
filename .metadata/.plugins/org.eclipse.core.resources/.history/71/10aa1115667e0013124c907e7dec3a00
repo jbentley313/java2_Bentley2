@@ -18,8 +18,17 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 	TextView head;
 	Button espnBtn;
 	private String urlString;
-	String newPassedHead;
-	String hlToPassBacktoMainAct;
+	Bundle result;
+	String myString;
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		  if (resultCode == RESULT_OK && requestCode == 0) {
+		     result = data.getExtras();
+		     myString = result.getString("headlineObject");
+			  Log.i("passed string", myString);
+		  }
+		}
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +40,9 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 		espnBtn = (Button) this.findViewById(R.id.moreButton);
 		espnBtn.setOnClickListener(this);
 		
-		Bundle data = getIntent().getExtras();
-		if(data != null){
-		  String myString = data.getString("headlineObject");
-		  Log.i("passed string", myString);
+		
+		if(result != null){
+		  
 		  
 		  
 		  
@@ -51,7 +59,7 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 			String secondHalf2 = descript1[1];
 			Log.i("2", firstHalf2);
 			Log.i("22", secondHalf2);
-			 newPassedHead = secondHalf2.replace(", lastMod", "");
+			String newPassedHead = secondHalf2.replace(", lastMod", "");
 			Log.i("desc", newPassedHead);
 			
 			
@@ -81,9 +89,6 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 			
 			String[] headlinePassed = splitHLs[1].split(", links");
 			Log.i("splitHead", headlinePassed[0]);
-			
-			hlToPassBacktoMainAct = headlinePassed[0];
-			
 			
 			head.setText(newPassedHead);
 			headDescrip.setText(headlinePassed[0]);
@@ -126,12 +131,6 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 		}
 	}
 
-	@Override
-	public void finish() {
-	    Intent data = new Intent();
-	    data.putExtra("keyA", hlToPassBacktoMainAct);
-	    setResult(RESULT_OK, data);
-	    super.finish();
-	}
+	
 
 }
