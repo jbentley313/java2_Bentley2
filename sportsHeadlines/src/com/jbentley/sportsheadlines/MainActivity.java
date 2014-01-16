@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	Object obj;
 	ArrayList<HashMap<String, String>>  mylist;
 	EditText searchTxt;
-//	String searchString;
+	//	String searchString;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -79,7 +79,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		refreshBtn = (Button) this.findViewById(R.id.firstButton);
 		searchBtn = (Button) this.findViewById(R.id.searchButton);
 		searchTxt = (EditText) this.findViewById(R.id.searchTxt);
-		
+
 		refreshBtn.setOnClickListener(this);
 		searchBtn.setOnClickListener(this);
 		mContext = this;
@@ -145,14 +145,18 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	 * Display data displays the saved data from storage
 	 */
 	public void displayData() {
+		
 		Log.i(Tag, "displayData called");
-
+		mylist = new ArrayList<HashMap<String,String>>();
+		String passedSearchString =  searchTxt.getText().toString();
+		
+		
 		File file = this.getFileStreamPath(filename);
 		if(file.exists()) {
 			String JSONString = FileManager.readStringFile(getApplicationContext(), filename);
 			//		connectivityClass connectionCheck = new connectivityClass();
 
-			mylist = new ArrayList<HashMap<String,String>>();
+
 			JSONObject job = null;
 			JSONArray feed = null;
 			String formattedDate = null;
@@ -171,6 +175,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 					JSONObject links = feedObject.getJSONObject("links");
 					String moreLinks = links.getString("web");
 
+
 					//date pattern for passed date
 					SimpleDateFormat originalDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
 
@@ -187,21 +192,46 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						e.printStackTrace();
 					}
 
-					//hashmap for listview
-					HashMap<String, String> displayMap = new HashMap<String, String>();
-					displayMap.put("description", description);
+					if (passedSearchString.equalsIgnoreCase("")) {
+//						Toast.makeText(mContext, "PASSEDSEARCH NULL", Toast.LENGTH_SHORT).show();
+						//hashmap for listview
+						HashMap<String, String> displayMap = new HashMap<String, String>();
+						displayMap.put("description", description);
 
-					displayMap.put("headline", headline);
+						displayMap.put("headline", headline);
 
-					displayMap.put("lastMod", formattedDate);
+						displayMap.put("lastMod", formattedDate);
 
-					displayMap.put("links", moreLinks);
+						displayMap.put("links", moreLinks);
 
 
-					//add displayMap to mylist
-					mylist.add(displayMap);
+
+						//add displayMap to mylist
+						mylist.add(displayMap);
+					}
+					else if (passedSearchString.equalsIgnoreCase(headline)){
+						Toast.makeText(mContext, "YES", Toast.LENGTH_LONG).show();
+//						mylist.clear();
+
+						HashMap<String, String> displayMap = new HashMap<String, String>();
+						displayMap.put("description", description);
+
+						displayMap.put("headline", headline);
+
+						displayMap.put("lastMod", formattedDate);
+
+						displayMap.put("links", moreLinks);
+
+
+						
+						//add displayMap to mylist
+						mylist.add(displayMap);
+
+					}
 
 				}
+				
+				searchTxt.setText("");
 
 				//adapter to display
 				SimpleAdapter adapter = new SimpleAdapter(this, mylist, R.layout.list_row, new String[] 
@@ -232,8 +262,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		case R.id.searchButton:
 			Log.i("SEARCH", "BUTTON");
-			String searchString = searchTxt.getText().toString();
-			Log.i("SearchStrg", searchString);
+//			String searchString = searchTxt.getText().toString();
+//			Log.i("SearchStrg", searchString);
+
+			displayData();
+
+
 			break;
 		}
 
@@ -249,58 +283,59 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			int itemPos = ((position)-1);
 			String itemStrg = Integer.toString(itemPos);
 			Log.i(Tag, itemStrg);
-			
-			
-//			String JSONString = FileManager.readStringFile(getApplicationContext(), filename);
-//			
-//			JSONObject job = null;
-//			JSONArray feed = null;
-//			
-//			
-//				try {
-//					job = new JSONObject(JSONString);
-//				} catch (JSONException e2) {
-//					// TODO Auto-generated catch block
-//					e2.printStackTrace();
-//				}
-//				try {
-//					feed = job.getJSONArray("feed");
-//				} catch (JSONException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				int feedSize = feed.length();
-//				
-//				//loop through saved data and display
-//				
-//					try {
-//						JSONObject feedObject = feed.getJSONObject(itemPos);
-//						
-//						String passHeadline = feedObject.getString("headline");
-//						String passDescription = feedObject.getString("description");
-//						JSONObject passOb = feedObject.getJSONObject("links");
-//						String passURL = passOb.getString("web");
-//						
-//						
-//						Log.i(Tag, passHeadline);
-//						Log.i(Tag, passDescription);
-//						Log.i(Tag, passURL);
-//						
-//					} catch (JSONException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//			
-//			
-//			
-//			
-//			
-			
-			
-			
+
+
+			//			String JSONString = FileManager.readStringFile(getApplicationContext(), filename);
+			//			
+			//			JSONObject job = null;
+			//			JSONArray feed = null;
+			//			
+			//			
+			//				try {
+			//					job = new JSONObject(JSONString);
+			//				} catch (JSONException e2) {
+			//					// TODO Auto-generated catch block
+			//					e2.printStackTrace();
+			//				}
+			//				try {
+			//					feed = job.getJSONArray("feed");
+			//				} catch (JSONException e1) {
+			//					// TODO Auto-generated catch block
+			//					e1.printStackTrace();
+			//				}
+			//				int feedSize = feed.length();
+			//				
+			//				//loop through saved data and display
+			//				
+			//					try {
+			//						JSONObject feedObject = feed.getJSONObject(itemPos);
+			//						
+			//						String passHeadline = feedObject.getString("headline");
+			//						String passDescription = feedObject.getString("description");
+			//						JSONObject passOb = feedObject.getJSONObject("links");
+			//						String passURL = passOb.getString("web");
+			//						
+			//						
+			//						Log.i(Tag, passHeadline);
+			//						Log.i(Tag, passDescription);
+			//						Log.i(Tag, passURL);
+			//						
+			//						
+			//					} catch (JSONException e) {
+			//						// TODO Auto-generated catch block
+			//						e.printStackTrace();
+			//					}
+
+
+
+
+
+
+
+
 			String value= obj.toString();
-		
-			Log.i(" has", value);
+
+			Log.i("has", value);
 
 			Intent headlineIntent = new Intent(this, HeadlineActivity.class);
 			headlineIntent.putExtra("headlineObject",  value);
