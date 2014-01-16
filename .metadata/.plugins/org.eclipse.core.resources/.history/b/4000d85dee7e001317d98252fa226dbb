@@ -130,8 +130,6 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 	}
 
 	@Override
-	
-	//pass data back to mainactivity
 	public void finish() {
 	    Intent data = new Intent();
 	    data.putExtra("keyA", hlToPassBacktoMainAct);

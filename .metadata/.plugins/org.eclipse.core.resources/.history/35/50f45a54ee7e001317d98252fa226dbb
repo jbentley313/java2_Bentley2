@@ -120,7 +120,6 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 					Uri.parse("http://" + urlString));
 
 			startActivity(intentESPN);
-			
 		} else {
 			Toast.makeText(this,
 					"Sorry,  a network connection is required.",
@@ -130,8 +129,6 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 	}
 
 	@Override
-	
-	//pass data back to mainactivity
 	public void finish() {
 	    Intent data = new Intent();
 	    data.putExtra("keyA", hlToPassBacktoMainAct);

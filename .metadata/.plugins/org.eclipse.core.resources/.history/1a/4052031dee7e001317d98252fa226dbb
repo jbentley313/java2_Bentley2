@@ -271,6 +271,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 			break;
 		}
+
 	}
 
 	//listview onItemClick
@@ -285,7 +286,54 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			Log.i(Tag, itemStrg);
 
 
-			
+			//			String JSONString = FileManager.readStringFile(getApplicationContext(), filename);
+			//			
+			//			JSONObject job = null;
+			//			JSONArray feed = null;
+			//			
+			//			
+			//				try {
+			//					job = new JSONObject(JSONString);
+			//				} catch (JSONException e2) {
+			//					// TODO Auto-generated catch block
+			//					e2.printStackTrace();
+			//				}
+			//				try {
+			//					feed = job.getJSONArray("feed");
+			//				} catch (JSONException e1) {
+			//					// TODO Auto-generated catch block
+			//					e1.printStackTrace();
+			//				}
+			//				int feedSize = feed.length();
+			//				
+			//				//loop through saved data and display
+			//				
+			//					try {
+			//						JSONObject feedObject = feed.getJSONObject(itemPos);
+			//						
+			//						String passHeadline = feedObject.getString("headline");
+			//						String passDescription = feedObject.getString("description");
+			//						JSONObject passOb = feedObject.getJSONObject("links");
+			//						String passURL = passOb.getString("web");
+			//						
+			//						
+			//						Log.i(Tag, passHeadline);
+			//						Log.i(Tag, passDescription);
+			//						Log.i(Tag, passURL);
+			//						
+			//						
+			//					} catch (JSONException e) {
+			//						// TODO Auto-generated catch block
+			//						e.printStackTrace();
+			//					}
+
+
+
+
+
+
+
+
 			String value= obj.toString();
 
 			Log.i("has", value);
@@ -347,15 +395,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		}
 	}
 
-	//activity result to get data from HeadlineActivity
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK && requestCode == 0) {
 			Bundle result = data.getExtras();
 			Log.i("RES", result.toString());
-			Object passedFromHLActivity = result.get("keyA");
-			Log.i("DescMain", passedFromHLActivity.toString());
+			Object aa = result.get("keyA");
+			Log.i("DescMain", aa.toString());
 
-			Toast.makeText(mContext, "Just read headline: " + passedFromHLActivity, Toast.LENGTH_SHORT).show();
+			Toast.makeText(mContext, "Just read headline: " + aa, Toast.LENGTH_SHORT).show();
 
 		}
 	}

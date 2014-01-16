@@ -52,7 +52,6 @@ public class HeadlineDownloadService extends IntentService{
 			try {
 				headlineURL = new URL(
 						"http://api.espn.com/v1/now?apikey=bbjwshe7tha4pnppmf7jsjwn");
-				
 				responseString = getHeadlines(headlineURL);
 				//				Log.i("response", responseString);
 
