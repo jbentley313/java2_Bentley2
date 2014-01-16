@@ -210,10 +210,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						mylist.add(displayMap);
 					}
 					else if (headline.toLowerCase().contains(passedSearchString.toLowerCase())){
-						int listLength = (mylist.size() + 1);
+						int listLength = listview.getCount();
 						String listLengthText = Integer.toString(listLength);
-						resultText.setText("Displaying " + listLengthText + " headlines");
-						
+						resultText.setText(listLengthText);
 						Toast.makeText(mContext, "YES", Toast.LENGTH_LONG).show();
 //						mylist.clear();
 
