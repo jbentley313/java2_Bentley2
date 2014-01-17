@@ -234,7 +234,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 				searchTxt.setText("");
 
-				//if displayData() returns a blank list, call displayData again with searchtext cleared
 				if (mylist.isEmpty()) {
 					Toast.makeText(mContext, "No Headlines contain " + passedSearchString, Toast.LENGTH_SHORT).show();
 					searchTxt.setText("");
