@@ -214,6 +214,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						String listLengthText = Integer.toString(listLength);
 						resultText.setText("Displaying " + listLengthText + " headlines");
 
+						Toast.makeText(mContext, "YES", Toast.LENGTH_LONG).show();
+						//						mylist.clear();
+
 						HashMap<String, String> displayMap = new HashMap<String, String>();
 						displayMap.put("description", description);
 
@@ -228,18 +231,16 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						//add displayMap to mylist
 						mylist.add(displayMap);
 
+					} else  {
+						searchTxt.setText("");
+						Toast.makeText(mContext, "No Headlines contain" + passedSearchString, Toast.LENGTH_SHORT).show();
+						displayData();
 					}
-					
+
 				}
 
 				searchTxt.setText("");
 
-				if (mylist.isEmpty()) {
-					Toast.makeText(mContext, "No Headlines contain " + passedSearchString, Toast.LENGTH_SHORT).show();
-					searchTxt.setText("");
-					displayData();
-				}
-				
 				//adapter to display
 				SimpleAdapter adapter = new SimpleAdapter(this, mylist, R.layout.list_row, new String[] 
 						{"headline", "lastMod"}, new int[]{R.id.headline, R.id.dateMod });
