@@ -24,7 +24,7 @@ public class HeadlineActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_headline);
+		setContentView(R.layout.headline_frag);
 		
 		headDescrip = (TextView) this.findViewById(R.id.HeadlineTitleTextView);
 		head = (TextView) this.findViewById(R.id.HeadlineHeadTextView);

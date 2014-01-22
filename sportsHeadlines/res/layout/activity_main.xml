@@ -14,7 +14,7 @@
 
 
     <Button
-        android:id="@+id/firstButton"
+        android:id="@+id/refreshBtn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/refresh" />
