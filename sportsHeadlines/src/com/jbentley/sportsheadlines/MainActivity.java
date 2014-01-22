@@ -67,8 +67,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
-		setContentView(R.layout.activity_main);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.headline_main);
 
 		connectionCheck = new connectivityClass();
 
@@ -135,7 +135,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		}
 
-		super.onCreate(savedInstanceState);
+		
 	}
 
 	/**

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;com.jbentley.sportsheadlines.HeadlineActivityFragment&apos; to &apos;MainActivityFragment&apos;&#x0A;- Original project: &apos;sportsHeadlines&apos;&#x0A;- Original element: &apos;com.jbentley.sportsheadlines.HeadlineActivityFragment&apos;&#x0A;- Renamed element: &apos;com.jbentley.sportsheadlines.MainActivityFragment&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;HeadlineActivityFragment&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.jbentley.sportsheadlines{HeadlineActivityFragment.java[HeadlineActivityFragment" matchStrategy="1" name="MainActivityFragment" qualified="false" references="true" similarDeclarations="false" stamp="1390362027979" textual="false" version="1.0"/>
+</session>
