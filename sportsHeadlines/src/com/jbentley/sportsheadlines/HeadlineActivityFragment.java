@@ -3,6 +3,7 @@ package com.jbentley.sportsheadlines;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,11 @@ public class HeadlineActivityFragment extends Fragment{
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.activity_headline, container);
+		Log.i("HeadlineActivity", "FRAGMENT!!");
+		
+		
+		
+		
 		return view;
 	}
 

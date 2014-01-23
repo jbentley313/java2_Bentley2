@@ -46,7 +46,7 @@ import com.jbentley.connectivityPackage.connectivityClass;
 /**
  * The Class MainActivity.
  */
-public class MainActivity extends Activity implements  OnItemClickListener{
+public class MainActivity extends Activity implements  OnItemClickListener, MainActivityFragment.pubMethods {
 	static  String Tag = "MAINACTIVITY";
 	private TextView resultText;
 	FileManager fileManager;
@@ -78,10 +78,8 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 
 		//inflate the listview 
 		listview = (ListView) this.findViewById(R.id.list);
-		View list_header = this.getLayoutInflater().inflate(R.layout.list_header, null);
-		listview.addHeaderView(list_header);
 		listview.setOnItemClickListener(this);
-
+		fileManager = FileManager.getInstance();
 		if (savedInstanceState != null) {
 			Log.i("SIS", "In Saved Instance");
 			//			Toast.makeText(mContext, "THERE IS A SAVED INSTANCE!",
@@ -89,7 +87,7 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 			mylist = (ArrayList<HashMap< String, String>>) savedInstanceState
 					.getSerializable("saved");
 
-			fileManager = FileManager.getInstance();
+			
 
 			startDownlIntent();
 

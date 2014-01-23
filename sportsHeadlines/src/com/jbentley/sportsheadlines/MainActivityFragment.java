@@ -1,5 +1,7 @@
 package com.jbentley.sportsheadlines;
 
+import com.jbentley.connectivityPackage.connectivityClass;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,24 +10,46 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 
-public class MainActivityFragment extends Fragment implements OnClickListener {
+public class MainActivityFragment extends Fragment implements OnClickListener, OnItemClickListener {
 	
 	Button refreshBtn;
 	Button searchBtn;
+	ListView listview;
+	connectivityClass connectionCheck;
+	private TextView resultText;
+	EditText searchTxt;
 	
-
+	public interface pubMethods {
+		void startDownlIntent();
+		void displayData();
+	}
+	
+	private pubMethods parentActivity;
+	
 	@Override
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
 		super.onAttach(activity);
+		Log.i("MAINfrag", "onAttatch");
+		if (activity instanceof pubMethods) {
+			parentActivity = (pubMethods) activity;
+		}
+		else {
+			throw new ClassCastException(activity.toString() + " must implement pubMethods!!");
+		}
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.i("FRAG", "CREATE VIEW");
+		Log.i("MAINACT", "FRAGMENT!!");
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.activity_main, container);
 		
@@ -35,6 +59,17 @@ public class MainActivityFragment extends Fragment implements OnClickListener {
 		refreshBtn.setOnClickListener(this);
 		searchBtn.setOnClickListener(this);
 		
+		listview = (ListView) view.findViewById(R.id.list);
+		View list_header = inflater.inflate(R.layout.list_header, null);
+		listview.addHeaderView(list_header);
+//		listview.setOnItemClickListener(this);
+		connectionCheck = new connectivityClass();
+
+		resultText = (TextView) view.findViewById(R.id.resultTextView);
+
+		searchTxt = (EditText) view.findViewById(R.id.searchTxt);
+		
+		
 		return view;
 	}
 
@@ -43,17 +78,22 @@ public class MainActivityFragment extends Fragment implements OnClickListener {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.refreshBtn:
-			Log.i("Refresh", "BUTTON from fragment");
-			//startService(downloadIntent);
+			Log.i("REFRESHbtn", "BUTTON from fragment");
+			parentActivity.startDownlIntent();
 			break;
 
 		case R.id.searchButton:
-			Log.i("SEARCH", "BUTTON from fragment");
+			Log.i("SEARCHbtn", "BUTTON from fragment");
 
-			//displayData();
+			parentActivity.displayData();
 
 			break;
 		}
+	}
+
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

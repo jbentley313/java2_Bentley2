@@ -5,9 +5,9 @@
     android:orientation="vertical" >
 
     <fragment
-        android:id="@+id/fragment1"
+        android:id="@+id/hline_frag"
         android:name="com.jbentley.sportsheadlines.HeadlineActivityFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

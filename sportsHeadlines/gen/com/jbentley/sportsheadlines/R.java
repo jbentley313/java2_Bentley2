@@ -26,12 +26,13 @@ public final class R {
     public static final class id {
         public static final int HeadlineHeadTextView=0x7f080001;
         public static final int HeadlineTitleTextView=0x7f080000;
-        public static final int action_settings=0x7f08000e;
-        public static final int dateMod=0x7f08000d;
-        public static final int dateModHeader=0x7f08000b;
-        public static final int fragment1=0x7f080009;
-        public static final int headline=0x7f08000c;
-        public static final int headlineHeader=0x7f08000a;
+        public static final int act_main_frag=0x7f080009;
+        public static final int action_settings=0x7f08000f;
+        public static final int dateMod=0x7f08000e;
+        public static final int dateModHeader=0x7f08000c;
+        public static final int headline=0x7f08000d;
+        public static final int headlineHeader=0x7f08000b;
+        public static final int hline_frag=0x7f08000a;
         public static final int list=0x7f080008;
         public static final int moreButton=0x7f080002;
         public static final int refreshBtn=0x7f080004;
