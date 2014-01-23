@@ -1,7 +1,0 @@
-package com.jbentley.sportsheadlines;
-
-import android.app.Fragment;
-
-public class HeadlineActivityFragment extends Fragment {
-
-}
