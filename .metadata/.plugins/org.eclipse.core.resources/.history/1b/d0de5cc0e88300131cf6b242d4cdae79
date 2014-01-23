@@ -18,27 +18,11 @@ public class HeadlineActivityFragment extends Fragment implements OnClickListene
 	private String urlString;
 	String newPassedHead;
 	String hlToPassBacktoMainAct;
-	
-	public interface pubMethodsfromHLFrag {
-		 void strtESPN(String urlString);
-		
-	}
-	
-	private pubMethodsfromHLFrag parentActivity;
-	
 
 	@Override
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
-	
 		super.onAttach(activity);
-		Log.i("HLFrag", "onAttatch");
-		if (activity instanceof pubMethodsfromHLFrag) {
-			parentActivity = (pubMethodsfromHLFrag) activity;
-		}
-		else {
-			throw new ClassCastException(activity.toString() + " must implement pubMethodsfromHLFrag!!");
-		}
 	}
 
 	@Override
@@ -117,7 +101,7 @@ public class HeadlineActivityFragment extends Fragment implements OnClickListene
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-		parentActivity.strtESPN(urlString);
+		
 	}
 
 }

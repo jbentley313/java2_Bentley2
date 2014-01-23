@@ -6,62 +6,38 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class HeadlineActivityFragment extends Fragment implements OnClickListener{
+public class HeadlineActivityFragment extends Fragment{
 	TextView headDescrip;
 	TextView head;
 	Button espnBtn;
 	private String urlString;
 	String newPassedHead;
 	String hlToPassBacktoMainAct;
-	
-	public interface pubMethodsfromHLFrag {
-		 void strtESPN(String urlString);
-		
-	}
-	
-	private pubMethodsfromHLFrag parentActivity;
-	
 
 	@Override
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
-	
 		super.onAttach(activity);
-		Log.i("HLFrag", "onAttatch");
-		if (activity instanceof pubMethodsfromHLFrag) {
-			parentActivity = (pubMethodsfromHLFrag) activity;
-		}
-		else {
-			throw new ClassCastException(activity.toString() + " must implement pubMethodsfromHLFrag!!");
-		}
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
 		View view = inflater.inflate(R.layout.activity_headline, container);
 		Log.i("HeadlineActivity", "FRAGMENT!!");
-		headDescrip = (TextView) view.findViewById(R.id.HeadlineTitleTextView);
-		head = (TextView) view.findViewById(R.id.HeadlineHeadTextView);
-		espnBtn = (Button) view.findViewById(R.id.moreButton);
-		espnBtn.setOnClickListener(this);
-		
+
 		Bundle data = getActivity().getIntent().getExtras();
 		if(data != null){
-		  String myString = data.getString("headlineObject");
-		  Log.i("passed string", myString);
-		  
-		  
-		  
-		  
-		  
-		  String[] fullHeadlineString = myString.toString().split("description");
+			String myString = data.getString("headlineObject");
+			Log.i("passed string in fragment", myString);
+			
+			String[] fullHeadlineString = myString.toString().split("description");
 			String firstHalf = fullHeadlineString[0];
 			String secondHalf = fullHeadlineString[1];
 			Log.i("1", firstHalf);
@@ -108,16 +84,14 @@ public class HeadlineActivityFragment extends Fragment implements OnClickListene
 			
 			head.setText(newPassedHead);
 			headDescrip.setText(headlinePassed[0]);
-		
+			
+			
+
 		}
+
+
+
 		
 		return view;
 	}
-
-	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
-		parentActivity.strtESPN(urlString);
-	}
-
 }
