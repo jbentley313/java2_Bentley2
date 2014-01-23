@@ -55,7 +55,7 @@ public class HeadlineActivity extends Activity implements OnClickListener, Headl
 	
 	
 	public void headlineJustRead(String hljr) {
-		hlToPassBacktoMainAct = hljr;
+		
 	}
 	
 	

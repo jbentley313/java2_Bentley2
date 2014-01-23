@@ -17,7 +17,7 @@ public class HeadlineActivity extends Activity implements OnClickListener, Headl
 //	Button espnBtn;
 //	private String urlString;
 //	String newPassedHead;
-	String hlToPassBacktoMainAct;
+//	String hlToPassBacktoMainAct;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,18 +53,12 @@ public class HeadlineActivity extends Activity implements OnClickListener, Headl
 		}
 	}
 	
-	
-	public void headlineJustRead(String hljr) {
-		hlToPassBacktoMainAct = hljr;
-	}
-	
-	
 	@Override
 	
 	//pass data back to mainactivity
 	public void finish() {
 	    Intent data = new Intent();
-	    data.putExtra("keyA", hlToPassBacktoMainAct);
+	    data.putExtra("keyA", "hlToPassBacktoMainAct");
 	    setResult(RESULT_OK, data);
 	    super.finish();
 	}

@@ -21,7 +21,6 @@ public class HeadlineActivityFragment extends Fragment implements OnClickListene
 	
 	public interface pubMethodsfromHLFrag {
 		 void strtESPN(String urlString);
-		 void headlineJustRead(String hljr);
 		
 	}
 	
@@ -105,7 +104,7 @@ public class HeadlineActivityFragment extends Fragment implements OnClickListene
 			Log.i("splitHead", headlinePassed[0]);
 			
 			hlToPassBacktoMainAct = headlinePassed[0];
-			parentActivity.headlineJustRead(hlToPassBacktoMainAct);
+			
 			
 			head.setText(newPassedHead);
 			headDescrip.setText(headlinePassed[0]);
