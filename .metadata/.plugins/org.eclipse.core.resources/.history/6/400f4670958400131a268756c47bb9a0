@@ -19,8 +19,6 @@ public class HeadlineActivityFragment extends Fragment implements OnClickListene
 	String newPassedHead;
 	String hlToPassBacktoMainAct;
 	
-	
-	//interface
 	public interface pubMethodsfromHLFrag {
 		 void strtESPN(String urlString);
 		 void headlineJustRead(String hljr);
@@ -55,8 +53,6 @@ public class HeadlineActivityFragment extends Fragment implements OnClickListene
 		espnBtn = (Button) view.findViewById(R.id.moreButton);
 		espnBtn.setOnClickListener(this);
 		
-		
-		//get bundle data
 		Bundle data = getActivity().getIntent().getExtras();
 		if(data != null){
 		  String myString = data.getString("headlineObject");
@@ -65,7 +61,7 @@ public class HeadlineActivityFragment extends Fragment implements OnClickListene
 		  
 		  
 		  
-		  //parse passed string
+		  
 		  String[] fullHeadlineString = myString.toString().split("description");
 			String firstHalf = fullHeadlineString[0];
 			String secondHalf = fullHeadlineString[1];

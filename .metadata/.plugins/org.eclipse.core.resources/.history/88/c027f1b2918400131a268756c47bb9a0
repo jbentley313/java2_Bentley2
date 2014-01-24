@@ -12,18 +12,16 @@ import android.widget.Toast;
 import com.jbentley.sportsheadlines.HeadlineActivityFragment;
 
 public class HeadlineActivity extends Activity implements OnClickListener, HeadlineActivityFragment.pubMethodsfromHLFrag {
-
+//	TextView headDescrip;
+//	TextView head;
+//	Button espnBtn;
+//	private String urlString;
+//	String newPassedHead;
 	String hlToPassBacktoMainAct;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-//		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//			finish();
-//			return;
-//		}
-		
 		setContentView(R.layout.headline_frag);
 		
 	}
@@ -36,7 +34,6 @@ public class HeadlineActivity extends Activity implements OnClickListener, Headl
 		
 	}
 
-	//start ESPN intent
 	public void strtESPN(String urlString) {
 		connectivityClass connectionChecker = new connectivityClass();
 

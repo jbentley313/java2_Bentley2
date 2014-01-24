@@ -89,7 +89,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 
 			
 
-
+			startDownlIntent();
 
 			if (mylist != null) {
 

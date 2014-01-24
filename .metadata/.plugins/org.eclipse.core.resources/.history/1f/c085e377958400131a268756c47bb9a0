@@ -19,8 +19,6 @@ public class HeadlineActivityFragment extends Fragment implements OnClickListene
 	String newPassedHead;
 	String hlToPassBacktoMainAct;
 	
-	
-	//interface
 	public interface pubMethodsfromHLFrag {
 		 void strtESPN(String urlString);
 		 void headlineJustRead(String hljr);

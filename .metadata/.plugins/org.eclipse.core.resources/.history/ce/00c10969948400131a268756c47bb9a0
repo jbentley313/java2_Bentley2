@@ -15,6 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivityFragment extends Fragment implements OnClickListener, OnItemClickListener {
 	
@@ -22,7 +23,7 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 	Button searchBtn;
 	ListView listview;
 	connectivityClass connectionCheck;
-//	private TextView resultText;
+	private TextView resultText;
 	EditText searchTxt;
 	
 	public interface pubMethods {
@@ -64,7 +65,7 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 //		listview.setOnItemClickListener(this);
 		connectionCheck = new connectivityClass();
 
-//		resultText = (TextView) view.findViewById(R.id.resultTextView);
+		resultText = (TextView) view.findViewById(R.id.resultTextView);
 
 		searchTxt = (EditText) view.findViewById(R.id.searchTxt);
 		
@@ -72,8 +73,6 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 		return view;
 	}
 
-	
-	//button click handler
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub

@@ -9,13 +9,13 @@
         android:name="com.jbentley.sportsheadlines.MainActivityFragment"
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="match_parent" />
 
-<!-- <fragment
+  <!-- <fragment
         android:id="@+id/hline_frag"
         android:name="com.jbentley.sportsheadlines.HeadlineActivityFragment"
         android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp" /> -->  
-     
+        android:layout_height="match_parent" />  -->
+    
 </LinearLayout>
