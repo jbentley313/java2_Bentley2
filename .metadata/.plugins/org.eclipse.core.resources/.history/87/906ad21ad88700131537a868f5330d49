@@ -31,7 +31,7 @@ public class MyDialogFragment extends DialogFragment{
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
 		super.onAttach(activity);
-		Log.i("MYD", "onAttatch");
+		Log.i("DIALOGFrag", "onAttatch");
 		if (activity instanceof dialogInterface) {
 			parentActivity = (dialogInterface) activity;
 		}
@@ -43,7 +43,7 @@ public class MyDialogFragment extends DialogFragment{
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		Log.i("MYD", "onCreate");
+		Log.i("YEP", "YEPP");
 		AlertDialog.Builder dialogBuild = new AlertDialog.Builder(getActivity());
 		dialogBuild.setTitle("What do you want to search for?");
 		final EditText input = new EditText(getActivity());
@@ -78,7 +78,11 @@ public class MyDialogFragment extends DialogFragment{
 	}
 
 
-
+@Override
+public void dismiss() {
+	// TODO Auto-generated method stub
+	super.dismiss();
+}
 
 
 

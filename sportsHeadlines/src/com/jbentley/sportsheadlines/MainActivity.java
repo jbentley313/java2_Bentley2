@@ -227,14 +227,14 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 
 				}
 
-				//				searchTxt.setText("");
-				//
-				//				//if displayData() returns a blank list, call displayData again with searchtext cleared
-				//				if (mylist.isEmpty()) {
-				//					Toast.makeText(mContext, "No Headlines contain " + passedSearchString, Toast.LENGTH_SHORT).show();
-				//					searchTxt.setText("");
-				//					displayData();
-				//				}
+
+				
+								//if displayData() returns a blank list, call displayData again with searchtext cleared
+								if (mylist.isEmpty()) {
+									Toast.makeText(mContext, "No Headlines contain " + searchString, Toast.LENGTH_SHORT).show();
+									
+									displayData("");
+								}
 
 				//adapter to display
 				SimpleAdapter adapter = new SimpleAdapter(this, mylist, R.layout.list_row, new String[] 
@@ -352,7 +352,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 		MyDialogFragment myDFragment = new MyDialogFragment();
 		fragmentTransaction.add(R.id.act_main_frag, myDFragment);
 		fragmentTransaction.commit();
-		new MyDialogFragment().show(getFragmentManager(), "MyDialog");
+		new MyDialogFragment().show(getFragmentManager(), "DialogFrag");
 		
 	}
 
