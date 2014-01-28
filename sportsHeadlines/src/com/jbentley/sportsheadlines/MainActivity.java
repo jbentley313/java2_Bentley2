@@ -36,6 +36,9 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import com.jbentley.sportsheadlines.HeadlineDownloadService;
@@ -57,7 +60,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 	Intent downloadIntent;
 	Object obj;
 	ArrayList<HashMap<String, String>>  mylist;
-	EditText searchTxt;
+	//	EditText searchTxt;
 	//	String searchString;
 
 	@SuppressWarnings("unchecked")
@@ -70,7 +73,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
 
-		searchTxt = (EditText) this.findViewById(R.id.searchTxt);
+		//		searchTxt = (EditText) this.findViewById(R.id.searchTxt);
 
 
 		mContext = this;
@@ -87,7 +90,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 			mylist = (ArrayList<HashMap< String, String>>) savedInstanceState
 					.getSerializable("saved");
 
-			
+
 
 
 
@@ -135,7 +138,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 
 		Log.i(Tag, "displayData called");
 		mylist = new ArrayList<HashMap<String,String>>();
-		String passedSearchString =  searchTxt.getText().toString();
+		//		String passedSearchString =  searchTxt.getText().toString();
 
 
 		File file = this.getFileStreamPath(filename);
@@ -179,6 +182,8 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 						e.printStackTrace();
 					}
 
+					String passedSearchString = "";
+					
 					//if no search text is entered, display all
 					if (passedSearchString.equalsIgnoreCase("")) {
 						//						Toast.makeText(mContext, "PASSEDSEARCH NULL", Toast.LENGTH_SHORT).show();
@@ -222,14 +227,14 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 
 				}
 
-				searchTxt.setText("");
-
-				//if displayData() returns a blank list, call displayData again with searchtext cleared
-				if (mylist.isEmpty()) {
-					Toast.makeText(mContext, "No Headlines contain " + passedSearchString, Toast.LENGTH_SHORT).show();
-					searchTxt.setText("");
-					displayData();
-				}
+				//				searchTxt.setText("");
+				//
+				//				//if displayData() returns a blank list, call displayData again with searchtext cleared
+				//				if (mylist.isEmpty()) {
+				//					Toast.makeText(mContext, "No Headlines contain " + passedSearchString, Toast.LENGTH_SHORT).show();
+				//					searchTxt.setText("");
+				//					displayData();
+				//				}
 
 				//adapter to display
 				SimpleAdapter adapter = new SimpleAdapter(this, mylist, R.layout.list_row, new String[] 
@@ -337,6 +342,11 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 
 		}
 	}
+
+	public void displayDialogFrag() {
+		Log.i("SDDSDSDSDSDS", "ZZZZZZZZ");
+	}
+
 
 
 }

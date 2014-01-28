@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.os.RemoteException"/>
 <fullyQualifiedTypeName name="android.os.Messenger"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
 <fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.R.id"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.HeadlineActivityFragment"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.HeadlineActivityFragment.pubMethodsfromHLFrag"/>
+<fullyQualifiedTypeName name="android.content.res.Configuration"/>
 </qualifiedTypeNameHistroy>

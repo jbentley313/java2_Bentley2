@@ -6,8 +6,6 @@ import android.R.string;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +30,6 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 	public interface pubMethods {
 		void startDownlIntent();
 		void displayData();
-		void displayDialogFrag();
 	}
 	
 	private pubMethods parentActivity;
@@ -91,15 +88,27 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 		case R.id.searchButton:
 			Log.i("SEARCHbtn", "BUTTON from fragment");
 
-			
-			
-			parentActivity.displayDialogFrag();
-//			parentActivity.displayData();
+			parentActivity.displayData();
 
 			break;
 		}
 	}
 
+	
+	
+	public static class MyDialogFragment extends DialogFragment {
+		String  mySearchString;
+		static MyDialogFragment newInstance(String myPassedSearchString) {
+			MyDialogFragment mdf = new MyDialogFragment();
+			
+			Bundle args = new Bundle();
+			args.putString("stringy", myPassedSearchString);
+			mdf.setArguments(args);
+			
+			return mdf;
+			
+		}
+	}
 	
 	
 	

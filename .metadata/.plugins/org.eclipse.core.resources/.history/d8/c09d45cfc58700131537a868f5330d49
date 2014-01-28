@@ -32,7 +32,6 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 	public interface pubMethods {
 		void startDownlIntent();
 		void displayData();
-		void displayDialogFrag();
 	}
 	
 	private pubMethods parentActivity;
@@ -93,8 +92,8 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 
 			
 			
-			parentActivity.displayDialogFrag();
-//			parentActivity.displayData();
+			
+			parentActivity.displayData();
 
 			break;
 		}

@@ -50,11 +50,6 @@
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>
-	<section name="NewClassWizardPage">
-		<item value="false" key="create_constructor"/>
-		<item value="true" key="create_unimplemented"/>
-		<item value="false" key="create_main"/>
-	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item value="*" key="patterns"/>
 		<item value="false" key="updateQualifiedNames"/>
@@ -64,5 +59,10 @@
 		<item value="false" key="updateSimilarElements"/>
 	</section>
 	<section name="RenameInformationPopup">
+	</section>
+	<section name="NewClassWizardPage">
+		<item value="false" key="create_constructor"/>
+		<item value="true" key="create_unimplemented"/>
+		<item value="false" key="create_main"/>
 	</section>
 </section>

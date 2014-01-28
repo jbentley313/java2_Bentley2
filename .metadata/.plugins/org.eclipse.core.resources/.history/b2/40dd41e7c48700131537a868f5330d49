@@ -28,19 +28,22 @@ import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import com.jbentley.sportsheadlines.HeadlineDownloadService;
+import com.jbentley.sportsheadlines.MainActivityFragment.MyDialogFragment;
+
 import coml.jbentley.utils.FileManager;
 import com.jbentley.connectivityPackage.connectivityClass;
 
@@ -48,15 +51,13 @@ import com.jbentley.connectivityPackage.connectivityClass;
 /**
  * The Class MainActivity.
  */
-public class MainActivity extends Activity implements OnClickListener, OnItemClickListener{
+public class MainActivity extends Activity implements  OnItemClickListener, MainActivityFragment.pubMethods {
 	static  String Tag = "MAINACTIVITY";
 	private TextView resultText;
 	FileManager fileManager;
 	String filename = "headlineFile";
 	Context mContext;
 	ListView listview;
-	Button refreshBtn;
-	Button searchBtn;
 	connectivityClass connectionCheck;
 	Intent downloadIntent;
 	Object obj;
@@ -67,27 +68,23 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
-		setContentView(R.layout.activity_main);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main_frag);
 
 		connectionCheck = new connectivityClass();
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
-		refreshBtn = (Button) this.findViewById(R.id.firstButton);
-		searchBtn = (Button) this.findViewById(R.id.searchButton);
+
 		searchTxt = (EditText) this.findViewById(R.id.searchTxt);
 
-		refreshBtn.setOnClickListener(this);
-		searchBtn.setOnClickListener(this);
+
 		mContext = this;
 
 
 		//inflate the listview 
 		listview = (ListView) this.findViewById(R.id.list);
-		View list_header = this.getLayoutInflater().inflate(R.layout.list_header, null);
-		listview.addHeaderView(list_header);
 		listview.setOnItemClickListener(this);
-
+		fileManager = FileManager.getInstance();
 		if (savedInstanceState != null) {
 			Log.i("SIS", "In Saved Instance");
 			//			Toast.makeText(mContext, "THERE IS A SAVED INSTANCE!",
@@ -95,14 +92,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			mylist = (ArrayList<HashMap< String, String>>) savedInstanceState
 					.getSerializable("saved");
 
-			fileManager = FileManager.getInstance();
+			
 
-			//messenger for intent
-			Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
 
-			//intent to call HeadlineDownloadService to download headlines
-			downloadIntent = new Intent(this, HeadlineDownloadService.class);
-			downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
 
 			if (mylist != null) {
 
@@ -120,22 +112,25 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		} else {
 			// if there is no saved instance, go get data and display it
 			fileManager = FileManager.getInstance();
-
-			//messenger for intent
-			Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
-
-			//intent to call HeadlineDownloadService to download headlines
-			downloadIntent = new Intent(this, HeadlineDownloadService.class);
-			downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
-
-			//start the intent
-			startService(downloadIntent);
-			resultText.setText("Loading...");
-
+			startDownlIntent();
 
 		}
 
-		super.onCreate(savedInstanceState);
+	}
+
+
+	public void startDownlIntent() {
+		//messenger for intent
+		Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
+
+
+		//intent to call HeadlineDownloadService to download headlines
+		downloadIntent = new Intent(this, HeadlineDownloadService.class);
+		downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
+
+		//start the intent
+		startService(downloadIntent);
+		resultText.setText("Loading...");
 	}
 
 	/**
@@ -214,9 +209,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						String listLengthText = Integer.toString(listLength);
 						resultText.setText("Displaying " + listLengthText + " headlines");
 
-						Toast.makeText(mContext, "YES", Toast.LENGTH_LONG).show();
-						//						mylist.clear();
-
 						HashMap<String, String> displayMap = new HashMap<String, String>();
 						displayMap.put("description", description);
 
@@ -233,20 +225,17 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 					}
 
-					  if (!(headline.toLowerCase().contains(passedSearchString.toLowerCase()))) {
-							Toast.makeText(mContext, "No Headlines contain " + passedSearchString, Toast.LENGTH_SHORT).show();
-
-						}
-					
 				}
 
-//				searchTxt.setText("");
+				searchTxt.setText("");
 
+				//if displayData() returns a blank list, call displayData again with searchtext cleared
 				if (mylist.isEmpty()) {
+					Toast.makeText(mContext, "No Headlines contain " + passedSearchString, Toast.LENGTH_SHORT).show();
 					searchTxt.setText("");
 					displayData();
 				}
-				
+
 				//adapter to display
 				SimpleAdapter adapter = new SimpleAdapter(this, mylist, R.layout.list_row, new String[] 
 						{"headline", "lastMod"}, new int[]{R.id.headline, R.id.dateMod });
@@ -265,23 +254,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		} 
 	}
 
-	@Override
-	//refresh button (need to implement a three second delay on week2 to prevent too many api calls)
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.firstButton:
-			startService(downloadIntent);
-			break;
 
-		case R.id.searchButton:
-			Log.i("SEARCH", "BUTTON");
-
-			displayData();
-
-			break;
-		}
-	}
 
 	//listview onItemClick
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
@@ -295,7 +268,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			Log.i(Tag, itemStrg);
 
 
-			
+
 			String value= obj.toString();
 
 			Log.i("has", value);
@@ -369,6 +342,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		}
 	}
-
+	
 
 }
