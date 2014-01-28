@@ -1,0 +1,22 @@
+package com.jbentley.sportsheadlines;
+
+import android.app.DialogFragment;
+import android.os.Bundle;
+import android.util.Log;
+
+public class MyDialogFragment extends DialogFragment{
+	
+	 
+	        static MyDialogFragment newInstance(int num) {
+	            MyDialogFragment mdf = new MyDialogFragment();
+
+	            // Supply num input as an argument.
+	            Bundle args = new Bundle();
+	            args.putInt("num", num);
+	            mdf.setArguments(args);
+	            Log.i("DF", "DF");
+
+	            return mdf;
+	        }
+
+}

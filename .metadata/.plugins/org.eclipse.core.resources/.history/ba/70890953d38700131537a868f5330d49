@@ -1,0 +1,73 @@
+package com.jbentley.sportsheadlines;
+
+import com.jbentley.sportsheadlines.MainActivityFragment.pubMethods;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
+
+public class MyDialogFragment extends DialogFragment{
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+	}
+
+
+public interface dialogInterface {
+	void displayData(); 
+}
+
+private dialogInterface parentActivity;
+
+@Override
+public void onAttach(Activity activity) {
+	// TODO Auto-generated method stub
+	super.onAttach(activity);
+	Log.i("DIALOGFrag", "onAttatch");
+	if (activity instanceof dialogInterface) {
+		parentActivity = (dialogInterface) activity;
+	}
+	else {
+		throw new ClassCastException(activity.toString() + " must implement dialogInterface!!");
+	}
+}
+
+	@Override
+	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		Log.i("YEP", "YEPP");
+		AlertDialog.Builder dialogBuild = new AlertDialog.Builder(getActivity());
+		dialogBuild.setTitle("What do you want to search for?");
+		final EditText input = new EditText(getActivity());
+		
+		dialogBuild.setPositiveButton("Go!", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				String passedEditTextString = input.getText().toString();
+				
+			}
+		});
+		
+
+        dialogBuild.setView(input);
+		return dialogBuild.create();
+		
+	}
+
+
+
+	
+
+	
+
+}

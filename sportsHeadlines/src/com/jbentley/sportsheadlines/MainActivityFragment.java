@@ -2,12 +2,8 @@ package com.jbentley.sportsheadlines;
 
 import com.jbentley.connectivityPackage.connectivityClass;
 
-import android.R.string;
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +27,7 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 	
 	public interface pubMethods {
 		void startDownlIntent();
-		void displayData();
+		void displayData(String searchString);
 		void displayDialogFrag();
 	}
 	
@@ -71,7 +67,7 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 
 //		resultText = (TextView) view.findViewById(R.id.resultTextView);
 
-		searchTxt = (EditText) view.findViewById(R.id.searchTxt);
+//		searchTxt = (EditText) view.findViewById(R.id.searchTxt);
 		
 		
 		return view;

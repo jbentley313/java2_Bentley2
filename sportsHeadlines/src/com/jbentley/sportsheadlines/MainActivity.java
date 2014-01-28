@@ -49,7 +49,7 @@ import com.jbentley.connectivityPackage.connectivityClass;
 /**
  * The Class MainActivity.
  */
-public class MainActivity extends Activity implements  OnItemClickListener, MainActivityFragment.pubMethods {
+public class MainActivity extends Activity implements  OnItemClickListener, MainActivityFragment.pubMethods, MyDialogFragment.dialogInterface {
 	static  String Tag = "MAINACTIVITY";
 	private TextView resultText;
 	FileManager fileManager;
@@ -134,7 +134,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 	/**
 	 * Display data displays the saved data from storage
 	 */
-	public void displayData() {
+	public void displayData(String searchString) {
 
 		Log.i(Tag, "displayData called");
 		mylist = new ArrayList<HashMap<String,String>>();
@@ -182,7 +182,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 						e.printStackTrace();
 					}
 
-					String passedSearchString = "";
+					String passedSearchString = searchString;
 					
 					//if no search text is entered, display all
 					if (passedSearchString.equalsIgnoreCase("")) {
@@ -204,7 +204,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 					}
 
 					//if there is text entered in search text, only display matching headlines
-					else if (headline.toLowerCase().contains(passedSearchString.toLowerCase())){
+					else if (headline.toLowerCase().contains(searchString.toLowerCase())){
 						int listLength = (mylist.size() + 1);
 						String listLengthText = Integer.toString(listLength);
 						resultText.setText("Displaying " + listLengthText + " headlines");
@@ -306,7 +306,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 						fileManager.writeStringFile(mContext, filename, response);
 					}
 					resultText.setText("Nothing to display, check network connection");
-					displayData();
+					displayData("");
 				} 
 				catch (Exception e) 
 				{
@@ -343,8 +343,17 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 		}
 	}
 
+	
+	
 	public void displayDialogFrag() {
-		Log.i("SDDSDSDSDSDS", "ZZZZZZZZ");
+//		Log.i("SDDSDSDSDSDS", "ZZZZZZZZ");
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		MyDialogFragment myDFragment = new MyDialogFragment();
+		fragmentTransaction.add(R.id.act_main_frag, myDFragment);
+		fragmentTransaction.commit();
+		new MyDialogFragment().show(getFragmentManager(), "MyDialog");
+		
 	}
 
 
