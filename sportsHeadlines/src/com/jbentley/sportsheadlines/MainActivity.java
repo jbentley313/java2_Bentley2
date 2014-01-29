@@ -346,7 +346,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 	
 	
 	public void displayDialogFrag() {
-//		Log.i("SDDSDSDSDSDS", "ZZZZZZZZ");
+		Log.i("MainActivity", "displayDialogFrag Called");
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		MyDialogFragment myDFragment = new MyDialogFragment();

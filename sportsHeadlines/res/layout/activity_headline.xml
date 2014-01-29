@@ -27,4 +27,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/more_about_this_on_espn" />
+
+<Button
+        android:id="@+id/emailButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/email_this_headline" />
+
+
 </LinearLayout>
