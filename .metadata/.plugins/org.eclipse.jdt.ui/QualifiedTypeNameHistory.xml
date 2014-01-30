@@ -20,16 +20,13 @@
 <fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="com.jbentley.connectivityPackage.connectivityClass"/>
 <fullyQualifiedTypeName name="android.net.Uri"/>
-<fullyQualifiedTypeName name="android.widget.Toast"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
 <fullyQualifiedTypeName name="android.view.WindowManager"/>
-<fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.content.pm.FeatureInfo"/>
 <fullyQualifiedTypeName name="org.json.JSONArray"/>
 <fullyQualifiedTypeName name="org.json.JSONObject"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
-<fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.app.Fragment"/>
 <fullyQualifiedTypeName name="java.util.Locale"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.R.layout"/>
@@ -38,7 +35,6 @@
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.MainActivityFragment.strtDwnldIntent"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.MainActivityFragment.pubMethods"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.MainActivityFragment"/>
-<fullyQualifiedTypeName name="com.jbentley.sportsheadlines.R.id"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.HeadlineActivityFragment"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.HeadlineActivityFragment.pubMethodsfromHLFrag"/>
 <fullyQualifiedTypeName name="android.content.res.Configuration"/>
@@ -60,4 +56,8 @@
 <fullyQualifiedTypeName name="android.content.DialogInterface"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface.OnClickListener"/>
 <fullyQualifiedTypeName name="android.app.DialogFragment"/>
+<fullyQualifiedTypeName name="android.widget.Button"/>
+<fullyQualifiedTypeName name="com.jbentley.sportsheadlines.R.id"/>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
 </qualifiedTypeNameHistroy>

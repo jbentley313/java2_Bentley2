@@ -22,7 +22,6 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 	Button searchBtn;
 	ListView listview;
 	connectivityClass connectionCheck;
-//	private TextView resultText;
 	EditText searchTxt;
 	
 	public interface pubMethods {
@@ -87,20 +86,12 @@ public class MainActivityFragment extends Fragment implements OnClickListener, O
 		case R.id.searchButton:
 			Log.i("SEARCHbtn", "BUTTON from fragment");
 
-			
-			
 			parentActivity.displayDialogFrag();
-//			parentActivity.displayData();
 
 			break;
 		}
 	}
 
-	
-	
-	
-	
-	
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
 		

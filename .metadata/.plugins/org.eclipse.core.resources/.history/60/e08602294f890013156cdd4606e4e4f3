@@ -28,16 +28,17 @@ import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import com.jbentley.sportsheadlines.HeadlineDownloadService;
@@ -48,7 +49,7 @@ import com.jbentley.connectivityPackage.connectivityClass;
 /**
  * The Class MainActivity.
  */
-public class MainActivity extends Activity implements  OnItemClickListener{
+public class MainActivity extends Activity implements  OnItemClickListener, MainActivityFragment.pubMethods, MyDialogFragment.dialogInterface {
 	static  String Tag = "MAINACTIVITY";
 	private TextView resultText;
 	FileManager fileManager;
@@ -59,31 +60,29 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 	Intent downloadIntent;
 	Object obj;
 	ArrayList<HashMap<String, String>>  mylist;
-	EditText searchTxt;
+	//	EditText searchTxt;
 	//	String searchString;
 
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.headline_main);
+		setContentView(R.layout.activity_main_frag);
 
 		connectionCheck = new connectivityClass();
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
-		
-		searchTxt = (EditText) this.findViewById(R.id.searchTxt);
 
-		
+		//		searchTxt = (EditText) this.findViewById(R.id.searchTxt);
+
+
 		mContext = this;
 
 
 		//inflate the listview 
 		listview = (ListView) this.findViewById(R.id.list);
-		View list_header = this.getLayoutInflater().inflate(R.layout.list_header, null);
-		listview.addHeaderView(list_header);
 		listview.setOnItemClickListener(this);
-
+		fileManager = FileManager.getInstance();
 		if (savedInstanceState != null) {
 			Log.i("SIS", "In Saved Instance");
 			//			Toast.makeText(mContext, "THERE IS A SAVED INSTANCE!",
@@ -91,9 +90,9 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 			mylist = (ArrayList<HashMap< String, String>>) savedInstanceState
 					.getSerializable("saved");
 
-			fileManager = FileManager.getInstance();
 
-			startDownlIntent();
+
+
 
 			if (mylist != null) {
 
@@ -112,21 +111,17 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 			// if there is no saved instance, go get data and display it
 			fileManager = FileManager.getInstance();
 			startDownlIntent();
-			
-			
-
 
 		}
 
-		
 	}
 
-	
+
 	public void startDownlIntent() {
 		//messenger for intent
 		Messenger headlineDownloadMessenger = new Messenger(headlineDownloadHandler);
 
-		
+
 		//intent to call HeadlineDownloadService to download headlines
 		downloadIntent = new Intent(this, HeadlineDownloadService.class);
 		downloadIntent.putExtra(HeadlineDownloadService.MESSENGER_KEY, headlineDownloadMessenger);
@@ -135,15 +130,15 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 		startService(downloadIntent);
 		resultText.setText("Loading...");
 	}
-	
+
 	/**
 	 * Display data displays the saved data from storage
 	 */
-	public void displayData() {
+	public void displayData(String searchString) {
 
 		Log.i(Tag, "displayData called");
 		mylist = new ArrayList<HashMap<String,String>>();
-		String passedSearchString =  searchTxt.getText().toString();
+		//		String passedSearchString =  searchTxt.getText().toString();
 
 
 		File file = this.getFileStreamPath(filename);
@@ -187,6 +182,8 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 						e.printStackTrace();
 					}
 
+					String passedSearchString = searchString;
+					
 					//if no search text is entered, display all
 					if (passedSearchString.equalsIgnoreCase("")) {
 						//						Toast.makeText(mContext, "PASSEDSEARCH NULL", Toast.LENGTH_SHORT).show();
@@ -207,7 +204,7 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 					}
 
 					//if there is text entered in search text, only display matching headlines
-					else if (headline.toLowerCase().contains(passedSearchString.toLowerCase())){
+					else if (headline.toLowerCase().contains(searchString.toLowerCase())){
 						int listLength = (mylist.size() + 1);
 						String listLengthText = Integer.toString(listLength);
 						resultText.setText("Displaying " + listLengthText + " headlines");
@@ -227,18 +224,18 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 						mylist.add(displayMap);
 
 					}
-					
+
 				}
 
-				searchTxt.setText("");
 
-				//if displayData() returns a blank list, call displayData again with searchtext cleared
-				if (mylist.isEmpty()) {
-					Toast.makeText(mContext, "No Headlines contain " + passedSearchString, Toast.LENGTH_SHORT).show();
-					searchTxt.setText("");
-					displayData();
-				}
 				
+								//if displayData() returns a blank list, call displayData again with searchtext cleared
+								if (mylist.isEmpty()) {
+									Toast.makeText(mContext, "No Headlines contain " + searchString, Toast.LENGTH_SHORT).show();
+									
+									displayData("");
+								}
+
 				//adapter to display
 				SimpleAdapter adapter = new SimpleAdapter(this, mylist, R.layout.list_row, new String[] 
 						{"headline", "lastMod"}, new int[]{R.id.headline, R.id.dateMod });
@@ -257,7 +254,7 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 		} 
 	}
 
-	
+
 
 	//listview onItemClick
 	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
@@ -271,7 +268,7 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 			Log.i(Tag, itemStrg);
 
 
-			
+
 			String value= obj.toString();
 
 			Log.i("has", value);
@@ -309,7 +306,7 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 						fileManager.writeStringFile(mContext, filename, response);
 					}
 					resultText.setText("Nothing to display, check network connection");
-					displayData();
+					displayData("");
 				} 
 				catch (Exception e) 
 				{
@@ -345,6 +342,20 @@ public class MainActivity extends Activity implements  OnItemClickListener{
 
 		}
 	}
+
+	
+	
+	public void displayDialogFrag() {
+		Log.i("MainActivity", "displayDialogFrag Called");
+		FragmentManager fragmentManager = getFragmentManager();
+		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+		MyDialogFragment myDFragment = new MyDialogFragment();
+		fragmentTransaction.add(R.id.act_main_frag, myDFragment);
+		fragmentTransaction.commit();
+//		new MyDialogFragment().show(getFragmentManager(), "DialogFrag");
+		
+	}
+
 
 
 }

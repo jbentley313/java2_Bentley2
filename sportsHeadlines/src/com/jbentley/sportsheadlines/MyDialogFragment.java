@@ -53,8 +53,8 @@ public class MyDialogFragment extends DialogFragment{
 		dialogBuild.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
+			public void onClick(DialogInterface dialog, int any) {
+				Log.i("dis", "misssssed");
 				// TODO Auto-generated method stub
 				dismiss();
 			}
@@ -63,7 +63,7 @@ public class MyDialogFragment extends DialogFragment{
 		dialogBuild.setPositiveButton("Go!", new DialogInterface.OnClickListener() {
 
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
+			public void onClick(DialogInterface dialog, int any) {
 				// TODO Auto-generated method stub
 				String passedEditTextString = input.getText().toString();
 				parentActivity.displayData(passedEditTextString);
@@ -74,6 +74,7 @@ public class MyDialogFragment extends DialogFragment{
 
 		dialogBuild.setView(input);
 		return dialogBuild.create();
+		
 
 	}
 

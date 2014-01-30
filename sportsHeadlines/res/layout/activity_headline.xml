@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    style="@style/bgStyle" >
+     >
 
     
     
@@ -20,19 +20,24 @@
         style="@style/HLTitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+       
          />
 
 <Button
         android:id="@+id/moreButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/more_about_this_on_espn" />
+        android:text="@string/more_about_this_on_espn" 
+       
+         />
 
 <Button
         android:id="@+id/emailButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/email_this_headline" />
+        android:text="@string/email_this_headline"
+        
+         />
 
 
 </LinearLayout>
