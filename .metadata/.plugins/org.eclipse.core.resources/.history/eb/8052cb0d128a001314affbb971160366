@@ -58,7 +58,9 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 	Intent downloadIntent;
 	Object obj;
 	ArrayList<HashMap<String, String>>  mylist;
-	
+	//	EditText searchTxt;
+	//	String searchString;
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,9 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 		connectionCheck = new connectivityClass();
 
 		resultText = (TextView) this.findViewById(R.id.resultTextView);
+
+		//		searchTxt = (EditText) this.findViewById(R.id.searchTxt);
+
 
 		mContext = this;
 
@@ -271,6 +276,7 @@ public class MainActivity extends Activity implements  OnItemClickListener, Main
 
 			if (msg.arg1 == RESULT_OK && msg.obj != null)
 			{
+
 				try {
 					response = (String) msg.obj;
 					if (connectionCheck.connectionStatus(mContext)){

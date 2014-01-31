@@ -37,7 +37,6 @@
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.MainActivityFragment"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.HeadlineActivityFragment"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.HeadlineActivityFragment.pubMethodsfromHLFrag"/>
-<fullyQualifiedTypeName name="android.content.res.Configuration"/>
 <fullyQualifiedTypeName name="android.R.string"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.MainActivityFragment.MyDialogFragment"/>
 <fullyQualifiedTypeName name="android.app.FragmentManager"/>
@@ -49,15 +48,16 @@
 <fullyQualifiedTypeName name="android.app.AlertDialog"/>
 <fullyQualifiedTypeName name="android.app.AlertDialog.Builder"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
-<fullyQualifiedTypeName name="com.jbentley.sportsheadlines.MyDialogFragment"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.MainActivity"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.MyDialogFragment.dialogInterface"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface"/>
 <fullyQualifiedTypeName name="android.content.DialogInterface.OnClickListener"/>
-<fullyQualifiedTypeName name="android.app.DialogFragment"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="com.jbentley.sportsheadlines.R.id"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.content.res.Configuration"/>
+<fullyQualifiedTypeName name="com.jbentley.sportsheadlines.MyDialogFragment"/>
+<fullyQualifiedTypeName name="android.app.DialogFragment"/>
 </qualifiedTypeNameHistroy>

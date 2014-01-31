@@ -1,9 +1,12 @@
 package com.jbentley.sportsheadlines;
 
+import com.jbentley.sportsheadlines.MainActivityFragment.pubMethods;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +19,7 @@ public class MyDialogFragment extends DialogFragment{
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 	}
+
 
 	public interface dialogInterface {
 		void displayData(String searchString); 
@@ -68,9 +72,17 @@ public class MyDialogFragment extends DialogFragment{
 			}
 		});	
 
+
 		dialogBuild.setView(input);
 		return dialogBuild.create();
 		
+
 	}
+
+
+
+
+
+
 
 }

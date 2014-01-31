@@ -1,9 +1,0 @@
-package com.jbentley.sportsheadlines;
-
-import android.app.DialogFragment;
-
-public class MyDialogFragment extends DialogFragment{
-	
-	
-
-}
